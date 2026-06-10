@@ -4,6 +4,11 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
+  base: mode === "production" ? "/love-story-countdown-rsvp/" : "/",
+  build: {
+    outDir: "docs",
+    emptyOutDir: true,
+  },
   server: {
     host: "::",
     port: 8080,

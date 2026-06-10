@@ -1,4 +1,6 @@
-export const galleryImages = [
+import { assetUrl } from "@/lib/assetUrl";
+
+const imagePaths = [
   "/imagens-1.jpg",
   "/imagens-2.jpg",
   "/imagens-3.jpg",
@@ -31,3 +33,5 @@ export const galleryImages = [
   "/imagens-30.jpeg",
   "/imagens-31.jpeg",
 ];
+
+export const galleryImages = imagePaths.map(assetUrl);

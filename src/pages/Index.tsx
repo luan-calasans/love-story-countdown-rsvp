@@ -28,6 +28,7 @@ import {
 } from '@/components/ui/dialog';
 import { Search, Gift, X, Filter, ArrowUpDown, Copy, Check } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
+import { assetUrl } from '@/lib/assetUrl';
 
 const PIX_KEY = 'luancalasans.site@gmail.com';
 
@@ -204,7 +205,10 @@ const gifts: GiftItem[] = [
     observation: 'Alta tecnologia e praticidade',
     image: '/presentes/Máquina-de-Lavar-Roupa.png',
   },
-];
+].map((gift) => ({
+  ...gift,
+  image: gift.image ? assetUrl(gift.image) : undefined,
+}));
 
 const pixGift: GiftItem = {
   id: 'pix',
@@ -213,7 +217,7 @@ const pixGift: GiftItem = {
   minValue: 0,
   maxValue: 0,
   observation: 'Presente flexível - qualquer valor é bem-vindo',
-  image: '/presentes/Vale-PIX.png',
+  image: assetUrl('/presentes/Vale-PIX.png'),
 };
 
 type SortOption = 'name-asc' | 'name-desc' | 'price-asc' | 'price-desc';

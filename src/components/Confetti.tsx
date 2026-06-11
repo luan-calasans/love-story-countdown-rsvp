@@ -18,12 +18,12 @@ const Confetti: React.FC = () => {
   const [confetti, setConfetti] = useState<Confetti[]>([]);
 
   const colors = [
-    '#D4AF37', // Wedding Gold
-    '#FFD700', // Bright Gold
-    '#FFA500', // Orange
-    '#FF6B6B', // Coral
-    '#E8C4C4', // Wedding Rose
-    '#F8F5F0', // Wedding Cream
+    '#a6573d', // Terracota
+    '#e3735e', // Terracota clara
+    '#6b863b', // Verde oliva
+    '#8fbf6f', // Verde oliva claro
+    '#f2b3a0', // Terracota pastel
+    '#F8F6EF', // Wedding Cream
   ];
 
   const shapes = ['●', '◆', '■', '▲', '★', '♦'];
@@ -125,7 +125,7 @@ const Confetti: React.FC = () => {
               color: conf.color,
               opacity,
               textShadow: `0 0 ${conf.size / 2}px ${conf.color}`,
-              filter: 'drop-shadow(0 0 4px rgba(212, 175, 55, 0.3))',
+              filter: 'drop-shadow(0 0 4px rgba(166, 87, 61, 0.3))',
             }}
           >
             {shapes[Math.floor(Math.random() * shapes.length)]}

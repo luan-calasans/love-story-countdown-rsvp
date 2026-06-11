@@ -9,33 +9,36 @@ body {
 
 @layer base {
 	:root {
-		--background: 36 30% 97%;
-		--foreground: 36 10% 20%;
+		--background: 53 24% 97%;
+		--foreground: 24 15% 20%;
 
 		--card: 0 0% 100%;
-		--card-foreground: 36 10% 20%;
+		--card-foreground: 24 15% 20%;
 
 		--popover: 0 0% 100%;
-		--popover-foreground: 36 10% 20%;
+		--popover-foreground: 24 15% 20%;
 
-		--primary: 43 67% 52%;
+		/* Terracota (#a6573d) */
+		--primary: 15 46% 45%;
 		--primary-foreground: 0 0% 100%;
 
-		--secondary: 350 45% 84%;
-		--secondary-foreground: 350 30% 30%;
+		/* Terracota clara (#e3735e) em tom pastel */
+		--secondary: 9 65% 86%;
+		--secondary-foreground: 13 45% 28%;
 
-		--muted: 36 20% 92%;
-		--muted-foreground: 36 5% 45%;
+		--muted: 60 16% 92%;
+		--muted-foreground: 40 8% 42%;
 
-		--accent: 90 15% 48%;
+		/* Verde oliva (#6b863b) */
+		--accent: 82 39% 38%;
 		--accent-foreground: 0 0% 100%;
 
 		--destructive: 0 84.2% 60.2%;
 		--destructive-foreground: 210 40% 98%;
 
-		--border: 36 20% 88%;
-		--input: 36 20% 88%;
-		--ring: 36 40% 70%;
+		--border: 53 18% 87%;
+		--input: 53 18% 87%;
+		--ring: 15 42% 58%;
 
 		--radius: 0.5rem;
 	}
@@ -123,7 +126,7 @@ html {
 	border-radius: inherit;
 	background: radial-gradient(
 		circle 90px at var(--x) var(--y),
-		rgba(212, 175, 55, 0.3),
+		rgba(166, 87, 61, 0.3),
 		transparent 70%
 	);
 	opacity: 0;
@@ -131,6 +134,30 @@ html {
 	pointer-events: none;
 }
 .btn-shine-gold:hover::before {
+	opacity: 1;
+}
+
+.btn-shine-olive {
+	--x: 50%;
+	--y: 50%;
+	position: relative;
+	overflow: hidden;
+}
+.btn-shine-olive::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: radial-gradient(
+		circle 90px at var(--x) var(--y),
+		rgba(107, 134, 59, 0.3),
+		transparent 70%
+	);
+	opacity: 0;
+	transition: opacity 0.25s ease;
+	pointer-events: none;
+}
+.btn-shine-olive:hover::before {
 	opacity: 1;
 }
 

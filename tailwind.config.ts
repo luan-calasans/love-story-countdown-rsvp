@@ -64,10 +64,11 @@ export default {
           ring: 'hsl(var(--sidebar-ring))',
         },
         wedding: {
-          cream: '#F8F5F0',
-          gold: '#D4AF37',
-          rose: '#E8C4C4',
-          olive: '#808F66',
+          cream: '#F8F6EF',
+          gold: '#a6573d', // terracota
+          rose: '#e3735e', // terracota clara
+          olive: '#6b863b',
+          sage: '#8fbf6f', // verde oliva claro
         },
         dark: {
           bg: '#111827',
@@ -147,10 +148,10 @@ export default {
         },
         glow: {
           '0%, 100%': {
-            boxShadow: '0 0 20px rgba(212, 175, 55, 0.3)',
+            boxShadow: '0 0 20px rgba(166, 87, 61, 0.3)',
           },
           '50%': {
-            boxShadow: '0 0 30px rgba(212, 175, 55, 0.6)',
+            boxShadow: '0 0 30px rgba(166, 87, 61, 0.6)',
           },
         },
         'slide-up': {

@@ -53,7 +53,7 @@ const CountdownTimer = () => {
     <div className='flex justify-center items-center space-x-4 md:space-x-8'>
       <div className='flex flex-col items-center'>
         <div className='bg-white dark:bg-dark-bg backdrop-blur-sm rounded-lg w-16 md:w-24 h-16 md:h-24 flex items-center justify-center'>
-          <span className='font-playfair text-2xl md:text-4xl text-wedding-gold'>
+          <span className='font-playfair text-2xl md:text-4xl text-wedding-olive'>
             {timeLeft.days}
           </span>
         </div>
@@ -64,7 +64,7 @@ const CountdownTimer = () => {
 
       <div className='flex flex-col items-center'>
         <div className='bg-white dark:bg-dark-bg backdrop-blur-sm rounded-lg w-16 md:w-24 h-16 md:h-24 flex items-center justify-center'>
-          <span className='font-playfair text-2xl md:text-4xl text-wedding-gold'>
+          <span className='font-playfair text-2xl md:text-4xl text-wedding-olive'>
             {timeLeft.hours}
           </span>
         </div>
@@ -75,7 +75,7 @@ const CountdownTimer = () => {
 
       <div className='flex flex-col items-center'>
         <div className='bg-white dark:bg-dark-bg backdrop-blur-sm rounded-lg w-16 md:w-24 h-16 md:h-24 flex items-center justify-center'>
-          <span className='font-playfair text-2xl md:text-4xl text-wedding-gold'>
+          <span className='font-playfair text-2xl md:text-4xl text-wedding-olive'>
             {timeLeft.minutes}
           </span>
         </div>
@@ -86,7 +86,7 @@ const CountdownTimer = () => {
 
       <div className='flex flex-col items-center'>
         <div className='bg-white dark:bg-dark-bg backdrop-blur-sm rounded-lg w-16 md:w-24 h-16 md:h-24 flex items-center justify-center'>
-          <span className='font-playfair text-2xl md:text-4xl text-wedding-gold'>
+          <span className='font-playfair text-2xl md:text-4xl text-wedding-olive'>
             {timeLeft.seconds}
           </span>
         </div>

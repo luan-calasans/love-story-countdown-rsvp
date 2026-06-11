@@ -138,13 +138,13 @@ const NavBar = () => {
       <button
         onClick={scrollToTop}
         className={cn(
-          'fixed bottom-6 right-6 z-50 p-3 rounded-full bg-white/70 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800 border border-gray-300 dark:border-wedding-gold shadow-lg transition-all duration-300',
+          'fixed bottom-6 right-6 z-50 p-3 rounded-full bg-white/70 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800 border border-gray-300 dark:border-wedding-olive shadow-lg transition-all duration-300',
           showScrollTop
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-10 pointer-events-none'
         )}
       >
-        <ArrowUp className="w-6 h-6 text-wedding-gold" />
+        <ArrowUp className="w-6 h-6 text-wedding-olive" />
       </button>
     </>
   );

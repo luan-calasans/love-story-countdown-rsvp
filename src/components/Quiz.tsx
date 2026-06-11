@@ -165,7 +165,7 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             </p>
             <Button
               onClick={resetQuiz}
-              className='w-full bg-wedding-gold hover:bg-wedding-gold/90 transition-colors duration-200'
+              className='w-full bg-wedding-olive hover:bg-wedding-olive/90 transition-colors duration-200'
             >
               Tentar Novamente
             </Button>
@@ -179,7 +179,7 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     <div className='min-h-screen flex items-center justify-center bg-wedding-cream p-4'>
       <Card className='w-full max-w-5xl mx-4'>
         <CardHeader className='text-center'>
-          <CardTitle className='text-4xl font-playfair text-wedding-gold mb-3'>
+          <CardTitle className='text-4xl font-playfair text-wedding-olive mb-3'>
             Quiz do Casal
           </CardTitle>
           <p className='text-lg text-gray-600'>
@@ -197,7 +197,7 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           {/* Progress bar */}
           <div className='w-full bg-gray-200 rounded-full h-2 mt-4'>
             <div
-              className='bg-wedding-gold h-2 rounded-full transition-all duration-300'
+              className='bg-wedding-olive h-2 rounded-full transition-all duration-300'
               style={{
                 width: `${
                   ((currentQuestionIndex + 1) / questions.length) * 100
@@ -221,8 +221,8 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 variant={selectedAnswer === option ? 'default' : 'outline'}
                 className={`min-h-[60px] p-3 text-left justify-start whitespace-normal break-words ${
                   selectedAnswer === option
-                    ? 'bg-wedding-gold text-white border-wedding-gold'
-                    : 'hover:bg-wedding-gold hover:text-white hover:border-wedding-gold transition-colors duration-200'
+                    ? 'bg-wedding-olive text-white border-wedding-olive'
+                    : 'hover:bg-wedding-olive hover:text-white hover:border-wedding-olive transition-colors duration-200'
                 }`}
                 onClick={() => handleAnswerSelect(option)}
                 disabled={showResult || blocked}
@@ -262,7 +262,7 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           {!showResult && selectedAnswer && (
             <Button
               onClick={handleSubmit}
-              className='w-full py-6 text-xl font-medium bg-wedding-gold hover:bg-wedding-gold/90 transition-colors duration-200'
+              className='w-full py-6 text-xl font-medium bg-wedding-olive hover:bg-wedding-olive/90 transition-colors duration-200'
               disabled={!selectedAnswer}
             >
               Confirmar Resposta

@@ -52,7 +52,7 @@ const PageLoader = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #fdf6ee 0%, #f8f0e8 40%, #f5e8e8 100%)",
+        background: "linear-gradient(135deg, #faf9f1 0%, #f2f2e3 40%, #f7ebe5 100%)",
         animation: fadeOut ? "loaderFadeOut 0.6s ease forwards" : undefined,
         overflow: "hidden",
       }}
@@ -67,7 +67,7 @@ const PageLoader = () => {
             left: `${p.left}%`,
             width: `${p.size}px`,
             height: `${p.size * 1.3}px`,
-            background: `radial-gradient(ellipse at 40% 30%, #f0c4c4, #e8a4a4cc)`,
+            background: `radial-gradient(ellipse at 40% 30%, #f2b3a0, #e3735ecc)`,
             borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
             transform: `rotate(${p.rotate}deg)`,
             animation: `petalFall ${p.duration}s ease-in ${p.delay}s infinite`,
@@ -83,7 +83,7 @@ const PageLoader = () => {
           width: "400px",
           height: "400px",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(143,191,111,0.16) 0%, transparent 70%)",
           animation: "glowPulse 2s ease-in-out infinite",
         }}
       />
@@ -105,9 +105,9 @@ const PageLoader = () => {
             top: "-6px",
             transform: "translateX(-50%)",
             fontSize: "52px",
-            color: "#D4AF37",
+            color: "#d62828",
             animation: "heartAppear 0.6s cubic-bezier(0.34,1.56,0.64,1) 1.5s both",
-            filter: "drop-shadow(0 0 8px rgba(212,175,55,0.6))",
+            filter: "drop-shadow(0 0 8px rgba(214,40,40,0.6))",
             zIndex: 10,
           }}
         >
@@ -190,7 +190,7 @@ const PageLoader = () => {
           fontSize: "clamp(1.6rem, 5vw, 2.4rem)",
           fontWeight: 600,
           letterSpacing: "0.04em",
-          background: "linear-gradient(135deg, #8B6914, #D4AF37, #C0952A)",
+          background: "linear-gradient(135deg, #84452f, #a6573d, #e3735e)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
           backgroundClip: "text",
@@ -213,9 +213,9 @@ const PageLoader = () => {
           animation: "namesAppear 0.6s ease 2.1s both",
         }}
       >
-        <div style={{ width: "40px", height: "1px", background: "linear-gradient(to right, transparent, #D4AF37)" }} />
-        <div style={{ fontSize: "12px", color: "#D4AF37", letterSpacing: "0.1em" }}>✦</div>
-        <div style={{ width: "40px", height: "1px", background: "linear-gradient(to left, transparent, #D4AF37)" }} />
+        <div style={{ width: "40px", height: "1px", background: "linear-gradient(to right, transparent, #6b863b)" }} />
+        <div style={{ fontSize: "12px", color: "#6b863b", letterSpacing: "0.1em" }}>✦</div>
+        <div style={{ width: "40px", height: "1px", background: "linear-gradient(to left, transparent, #6b863b)" }} />
       </div>
 
       {/* Data */}
@@ -224,7 +224,7 @@ const PageLoader = () => {
           fontFamily: "'Open Sans', sans-serif",
           fontSize: "clamp(0.75rem, 2vw, 0.9rem)",
           letterSpacing: "0.3em",
-          color: "#a07820",
+          color: "#6b863b",
           textTransform: "uppercase",
           animation: "namesAppear 0.6s ease 2.4s both",
         }}

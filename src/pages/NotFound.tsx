@@ -34,7 +34,7 @@ const NotFound = () => {
               </Link>
               <Link
                 to="/#presentes"
-                className="btn-shine-gold py-4 px-10 border-2 border-wedding-gold text-wedding-gold rounded-full uppercase tracking-wide shadow-md hover:shadow-lg transition-all duration-300 font-medium text-lg"
+                className="btn-shine-olive py-4 px-10 border-2 border-wedding-olive text-wedding-olive rounded-full uppercase tracking-wide shadow-md hover:shadow-lg transition-all duration-300 font-medium text-lg"
                 onMouseMove={(e) => {
                   const r = e.currentTarget.getBoundingClientRect();
                   e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`);

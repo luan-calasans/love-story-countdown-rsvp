@@ -1,10 +1,11 @@
 import React from 'react';
 import RevealOnScroll from './RevealOnScroll';
-import { Calendar } from 'lucide-react';
+import { Calendar, Play } from 'lucide-react';
 
 interface TimelineEvent {
   year: string;
   title: string;
+  videoUrl?: string;
 }
 
 const Timeline: React.FC = () => {
@@ -16,6 +17,7 @@ const Timeline: React.FC = () => {
     {
       year: '2023',
       title: 'Começamos a\nnamorar',
+      videoUrl: 'https://www.youtube.com/watch?v=aTq3kXzIjN8',
     },
     {
       year: '2024',
@@ -52,6 +54,19 @@ const Timeline: React.FC = () => {
                 <h4 className='text-base md:text-xl lg:text-2xl font-medium mb-1 dark:text-white whitespace-pre-line'>
                   {event.title}
                 </h4>
+                {event.videoUrl && (
+                  <a
+                    href={event.videoUrl}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className={`inline-flex items-center gap-1.5 mt-2 px-3 py-1.5 rounded-full border border-wedding-olive text-wedding-olive text-xs md:text-sm font-medium hover:bg-wedding-olive hover:text-white transition-colors duration-200 ${
+                      index % 2 === 0 ? 'flex-row-reverse' : ''
+                    }`}
+                  >
+                    <Play className='w-3.5 h-3.5' />
+                    Clique aqui para ver o vídeo
+                  </a>
+                )}
               </div>
 
               {/* Center point */}

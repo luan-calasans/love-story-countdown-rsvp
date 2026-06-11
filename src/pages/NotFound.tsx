@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import NavBar from "@/components/NavBar";
-import { Home, Gift } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const NotFound = () => {
   return (
@@ -21,26 +19,31 @@ const NotFound = () => {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              asChild
-              className="bg-wedding-gold hover:bg-wedding-gold/90 text-white"
-            >
-              <Link to="/">
-                <Home className="w-4 h-4 mr-2" />
+          <div className="flex justify-center">
+            <div className="inline-flex flex-col sm:flex-row gap-4">
+              <Link
+                to="/"
+                className="btn-shine-white py-4 px-10 bg-gradient-to-r from-wedding-gold to-wedding-gold/90 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 font-medium text-lg"
+                onMouseMove={(e) => {
+                  const r = e.currentTarget.getBoundingClientRect();
+                  e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`);
+                  e.currentTarget.style.setProperty('--y', `${e.clientY - r.top}px`);
+                }}
+              >
                 Voltar para o Início
               </Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="border-wedding-gold text-wedding-gold hover:bg-wedding-gold/10 hover:text-wedding-gold bg-wedding-cream/50"
-            >
-              <Link to="/#presentes">
-                <Gift className="w-4 h-4 mr-2" />
+              <Link
+                to="/#presentes"
+                className="btn-shine-gold py-4 px-10 border-2 border-wedding-gold text-wedding-gold rounded-full shadow-md hover:shadow-lg transition-all duration-300 font-medium text-lg"
+                onMouseMove={(e) => {
+                  const r = e.currentTarget.getBoundingClientRect();
+                  e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`);
+                  e.currentTarget.style.setProperty('--y', `${e.clientY - r.top}px`);
+                }}
+              >
                 Ver Lista de Presentes
               </Link>
-            </Button>
+            </div>
           </div>
         </div>
       </div>

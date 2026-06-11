@@ -520,12 +520,32 @@ const Index = () => {
 						<CountdownTimer />
 					</div>
 
+				<div className="flex justify-center mt-8">
+					<div className="inline-flex flex-col sm:flex-row gap-4">
 					<button
 						onClick={scrollToRsvp}
-						className="mt-8 py-4 px-10 bg-gradient-to-r from-wedding-gold to-wedding-gold/90 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 font-medium text-lg"
+						className="btn-shine-white py-4 px-10 bg-gradient-to-r from-wedding-gold to-wedding-gold/90 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 font-medium text-lg"
+						onMouseMove={(e) => {
+							const r = e.currentTarget.getBoundingClientRect();
+							e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`);
+							e.currentTarget.style.setProperty('--y', `${e.clientY - r.top}px`);
+						}}
 					>
 						Confirmar Presença
 					</button>
+					<a
+						href="#presentes"
+						className="btn-shine-gold py-4 px-10 border-2 border-wedding-gold text-wedding-gold rounded-full shadow-md hover:shadow-lg transition-all duration-300 font-medium text-lg text-center"
+						onMouseMove={(e) => {
+							const r = e.currentTarget.getBoundingClientRect();
+							e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`);
+							e.currentTarget.style.setProperty('--y', `${e.clientY - r.top}px`);
+						}}
+					>
+						Lista de Presentes
+					</a>
+					</div>
+				</div>
 				</div>
 			</section>
 
@@ -1154,12 +1174,26 @@ const Index = () => {
 							<div className="w-1 h-1 bg-wedding-gold rounded-full"></div>
 						</div>
 
-						<p className="text-sm text-gray-500 mb-4">
-							Que este seja o início de uma nova e bela jornada juntos.
-						</p>
-					</div>
+					<p className="text-sm text-gray-500 mb-4">
+						Que este seja o início de uma nova e bela jornada juntos.
+					</p>
+
+					<div className="w-full h-px bg-gradient-to-r from-transparent via-wedding-gold/30 to-transparent mt-10 mb-6" />
+
+					<p className="text-xs text-gray-400 tracking-wide">
+						Desenvolvido por{" "}
+						<a
+							href="https://github.com/luan-calasans"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-wedding-gold hover:text-wedding-gold/70 transition-colors font-medium"
+						>
+							Luan Calasans
+						</a>
+					</p>
 				</div>
-			</footer>
+			</div>
+		</footer>
 		</div>
 	);
 };

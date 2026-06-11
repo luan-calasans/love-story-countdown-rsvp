@@ -12,6 +12,7 @@ import CountdownTimer from '@/components/CountdownTimer';
 import RevealOnScroll from '@/components/RevealOnScroll';
 import RsvpForm from '@/components/RsvpForm';
 import Timeline from '@/components/Timeline';
+import OurStory from '@/components/OurStory';
 import ImageCarousel from '@/components/ImageCarousel';
 import { galleryImages } from '@/data/galleryImages';
 import { Input } from '@/components/ui/input';
@@ -1098,6 +1099,22 @@ const Index = () => {
 						</p>
 					</RevealOnScroll>
 					<ImageCarousel images={galleryImages} />
+				</div>
+			</section>
+
+			{/* Our Story Section */}
+			<section id="historia" className="py-20 bg-white">
+				<div className="container mx-auto">
+					<RevealOnScroll>
+						<h2
+							data-gsap-title
+							className="text-3xl md:text-4xl font-playfair text-center mb-12"
+						>
+							Nossa História
+						</h2>
+					</RevealOnScroll>
+
+					<OurStory />
 				</div>
 			</section>
 

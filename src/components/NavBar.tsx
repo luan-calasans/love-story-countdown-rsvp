@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 const navLinks = [
   { label: 'Início',      href: '#inicio' },
   { label: 'Galeria',     href: '#galeria' },
+  { label: 'Nossa História', href: '#historia' },
   { label: 'Nossa Jornada', href: '#timeline' },
   { label: 'Cerimônia',  href: '#cerimonia' },
   { label: 'Localização', href: '#localizacao' },

@@ -39,11 +39,15 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from '@/components/ui/dialog';
-import { Search, Gift, X, Filter, Copy, Check } from 'lucide-react';
+import { Search, Gift, X, Filter, Copy, Check, QrCode } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 import { assetUrl } from '@/lib/assetUrl';
+import { gerarPayloadPix } from '@/lib/pix';
 import { toast } from '@/components/ui/sonner';
 
 const PIX_KEY = 'luancalasans23@gmail.com';
+const PIX_NAME = 'Luan de Souza Campos Calasans';
+const PIX_CITY = 'Santos';
 
 interface GiftItem {
 	id: string;
@@ -665,7 +669,19 @@ const Index = () => {
 	const [paymentAmountDisplay, setPaymentAmountDisplay] =
 		useState<string>('0,00');
 	const [showPixModal, setShowPixModal] = useState(false);
-	const [copied, setCopied] = useState(false);
+	const [showQrCode, setShowQrCode] = useState(false);
+	const [copiedField, setCopiedField] = useState<'code' | 'key' | null>(null);
+
+	// Payload "Pix Copia e Cola" (BR Code) gerado a partir do valor escolhido
+	const pixPayload = useMemo(() => {
+		if (paymentAmount <= 0) return '';
+		return gerarPayloadPix({
+			chave: PIX_KEY,
+			nome: PIX_NAME,
+			cidade: PIX_CITY,
+			valor: paymentAmount,
+		});
+	}, [paymentAmount]);
 
 	// Sidebar sticky via JS (contorna limitações de CSS sticky)
 	const sidebarRef = useRef<HTMLDivElement>(null);
@@ -948,6 +964,7 @@ const Index = () => {
 		setPaymentAmount(amount);
 		setPaymentAmountDisplay(formatAmountDisplay(amount));
 		setIsModalOpen(false);
+		setShowQrCode(false);
 		setShowPixModal(true);
 	};
 
@@ -972,11 +989,14 @@ const Index = () => {
 		setIsModalOpen(true);
 	};
 
-	const copyPixCode = () => {
-		navigator.clipboard.writeText(PIX_KEY);
-		setCopied(true);
-		toast.success('Chave PIX copiada!');
-		setTimeout(() => setCopied(false), 2000);
+	const copyToClipboard = (field: 'code' | 'key') => {
+		const value = field === 'code' ? pixPayload : PIX_KEY;
+		navigator.clipboard.writeText(value);
+		setCopiedField(field);
+		toast.success(
+			field === 'code' ? 'Pix Copia e Cola copiado!' : 'Chave PIX copiada!',
+		);
+		setTimeout(() => setCopiedField(null), 2000);
 	};
 
 	// Handler para fechar modal de valor
@@ -991,6 +1011,7 @@ const Index = () => {
 	const handleClosePixModal = (open: boolean) => {
 		setShowPixModal(open);
 		if (!open) {
+			setShowQrCode(false);
 			resetPaymentStates();
 		}
 	};
@@ -1684,13 +1705,48 @@ const Index = () => {
 							<DialogTitle className="text-wedding-olive text-xl font-playfair flex items-center gap-2">
 								Pagamento via PIX
 							</DialogTitle>
-							<DialogDescription className="text-gray-500 text-sm mt-1">
-								Copie a chave e realize o pagamento no seu banco
+							<DialogDescription className="sr-only">
+								Pagamento via PIX
 							</DialogDescription>
 						</DialogHeader>
 					</div>
 
-					<div className="px-6 py-5 space-y-3">
+					<div className="px-6 py-5 space-y-4">
+						{/* QR Code (exibido somente ao clicar) */}
+						{showQrCode ? (
+							<div className="flex flex-col items-center">
+								<div className="rounded-2xl border-2 border-wedding-olive/25 bg-white p-4 shadow-sm">
+									{pixPayload ? (
+										<QRCodeSVG
+											value={pixPayload}
+											size={188}
+											level="M"
+											marginSize={0}
+										/>
+									) : (
+										<div className="w-[188px] h-[188px] flex items-center justify-center text-gray-300">
+											<QrCode className="w-16 h-16" />
+										</div>
+									)}
+								</div>
+								<p className="text-xs text-gray-400 mt-2 flex items-center gap-1">
+									<QrCode className="w-3.5 h-3.5" />
+									Abra o app do seu banco e escaneie
+								</p>
+							</div>
+						) : (
+							<Button
+								variant="outline"
+								onClick={() => setShowQrCode(true)}
+								disabled={!pixPayload}
+								className="btn-shine-olive w-full h-11 font-semibold border-wedding-olive/40 text-wedding-olive hover:bg-wedding-olive/10 hover:border-wedding-olive hover:text-wedding-olive disabled:opacity-40"
+								onMouseMove={shineMove}
+							>
+								<QrCode className="w-4 h-4 mr-2" />
+								Ver QR Code
+							</Button>
+						)}
+
 						{/* Card de informações */}
 						<div className="rounded-xl border border-wedding-olive/25 bg-wedding-olive/5 divide-y divide-wedding-olive/15 overflow-hidden">
 							{selectedGift && (
@@ -1708,12 +1764,12 @@ const Index = () => {
 									Recebedor
 								</p>
 								<p className="text-sm font-semibold text-gray-800">
-									Luan de Souza Campos Calasans
+									{PIX_NAME}
 								</p>
 							</div>
 							<div className="px-4 py-3">
 								<p className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-0.5">
-									Chave PIX
+									Chave PIX (e-mail)
 								</p>
 								<p className="text-sm font-semibold text-gray-800 break-all">
 									{PIX_KEY}
@@ -1733,36 +1789,44 @@ const Index = () => {
 							</div>
 						</div>
 
-						<div className="flex gap-3 mt-1">
-							<Button
-								variant="outline"
-								onClick={copyPixCode}
-								className={`btn-shine-olive flex-1 h-11 font-semibold transition-all ${copied ? 'border-green-400 bg-green-50 text-green-600 hover:bg-green-50 hover:text-green-600' : 'border-wedding-olive/40 text-wedding-olive hover:bg-wedding-olive/10 hover:border-wedding-olive hover:text-wedding-olive'}`}
-								onMouseMove={shineMove}
-							>
-								{copied ? (
-									<>
-										<Check className="w-4 h-4 mr-2" />
-										Copiado!
-									</>
-								) : (
-									<>
-										<Copy className="w-4 h-4 mr-2" />
-										Copiar chave
-									</>
-								)}
-							</Button>
-							<Button
-								onClick={() => {
-									setShowPixModal(false);
-									resetPaymentStates();
-								}}
-								className="btn-shine-white flex-1 bg-wedding-olive hover:bg-wedding-olive/90 text-white h-11 font-semibold shadow-md"
-								onMouseMove={shineMove}
-							>
-								Concluir
-							</Button>
-						</div>
+						{/* Pix Copia e Cola */}
+						<Button
+							onClick={() => copyToClipboard('code')}
+							disabled={!pixPayload}
+							className={`btn-shine-white w-full h-11 font-semibold shadow-md transition-all disabled:opacity-40 ${copiedField === 'code' ? 'border border-green-400 bg-green-50 text-green-600 hover:bg-green-50 hover:text-green-600' : 'bg-wedding-olive hover:bg-wedding-olive/90 text-white'}`}
+							onMouseMove={shineMove}
+						>
+							{copiedField === 'code' ? (
+								<>
+									<Check className="w-4 h-4 mr-2" />
+									Copiado!
+								</>
+							) : (
+								<>
+									<Copy className="w-4 h-4 mr-2" />
+									Copiar - Pix Copia e Cola
+								</>
+							)}
+						</Button>
+
+						<Button
+							variant="outline"
+							onClick={() => copyToClipboard('key')}
+							className={`btn-shine-olive w-full h-11 font-semibold transition-all ${copiedField === 'key' ? 'border-green-400 bg-green-50 text-green-600 hover:bg-green-50 hover:text-green-600' : 'border-wedding-olive/40 text-wedding-olive hover:bg-wedding-olive/10 hover:border-wedding-olive hover:text-wedding-olive'}`}
+							onMouseMove={shineMove}
+						>
+							{copiedField === 'key' ? (
+								<>
+									<Check className="w-4 h-4 mr-2" />
+									Copiado!
+								</>
+							) : (
+								<>
+									<Copy className="w-4 h-4 mr-2" />
+									Copiar - PIX e-mail
+								</>
+							)}
+						</Button>
 					</div>
 				</DialogContent>
 			</Dialog>

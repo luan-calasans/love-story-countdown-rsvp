@@ -23,7 +23,7 @@ const NotFound = () => {
             <div className="inline-flex flex-col sm:flex-row gap-4">
               <Link
                 to="/"
-                className="btn-shine-white py-4 px-10 bg-gradient-to-r from-wedding-gold to-wedding-gold/90 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 font-medium text-lg"
+                className="btn-shine-white py-4 px-10 bg-gradient-to-r from-wedding-gold to-wedding-gold/90 text-white rounded-full uppercase tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 font-medium text-lg"
                 onMouseMove={(e) => {
                   const r = e.currentTarget.getBoundingClientRect();
                   e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`);
@@ -34,7 +34,7 @@ const NotFound = () => {
               </Link>
               <Link
                 to="/#presentes"
-                className="btn-shine-gold py-4 px-10 border-2 border-wedding-gold text-wedding-gold rounded-full shadow-md hover:shadow-lg transition-all duration-300 font-medium text-lg"
+                className="btn-shine-gold py-4 px-10 border-2 border-wedding-gold text-wedding-gold rounded-full uppercase tracking-wide shadow-md hover:shadow-lg transition-all duration-300 font-medium text-lg"
                 onMouseMove={(e) => {
                   const r = e.currentTarget.getBoundingClientRect();
                   e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
+import useGsapAnimations from '@/hooks/useGsapAnimations';
 import { useLocation } from 'react-router-dom';
 import NavBar from '@/components/NavBar';
 import CountdownTimer from '@/components/CountdownTimer';
@@ -132,7 +133,14 @@ type SortOption = 'name-asc' | 'name-desc' | 'price-asc' | 'price-desc';
 const minPrice = Math.min(...gifts.map((g) => g.minValue));
 const maxPrice = Math.max(...gifts.map((g) => g.maxValue));
 
+const shineMove = (e: React.MouseEvent<HTMLElement>) => {
+	const r = e.currentTarget.getBoundingClientRect();
+	e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`);
+	e.currentTarget.style.setProperty('--y', `${e.clientY - r.top}px`);
+};
+
 const Index = () => {
+	useGsapAnimations();
 	const location = useLocation();
 	const [searchText, setSearchText] = useState('');
 	// Inicializa com valores seguros - 0 a 5000 cobre todos os presentes
@@ -482,68 +490,60 @@ const Index = () => {
 				id="inicio"
 				className="pt-32 pb-20 bg-white min-h-screen flex flex-col justify-center items-center px-4 relative"
 			>
-				{/* Background decorative elements */}
-				<div className="absolute inset-0 overflow-hidden pointer-events-none">
-					<div className="absolute top-20 left-10 w-32 h-32 bg-wedding-gold/10 rounded-full blur-xl"></div>
-					<div className="absolute bottom-20 right-10 w-40 h-40 bg-wedding-rose/10 rounded-full blur-xl"></div>
-					<div className="absolute top-1/2 left-1/4 w-24 h-24 bg-wedding-gold/5 rounded-full blur-lg"></div>
+			{/* Background decorative elements */}
+			<div className="absolute inset-0 overflow-hidden pointer-events-none">
+				<div data-hero-blob className="absolute top-20 left-10 w-32 h-32 bg-wedding-gold/10 rounded-full blur-xl"></div>
+				<div data-hero-blob className="absolute bottom-20 right-10 w-40 h-40 bg-wedding-rose/10 rounded-full blur-xl"></div>
+				<div data-hero-blob className="absolute top-1/2 left-1/4 w-24 h-24 bg-wedding-gold/5 rounded-full blur-lg"></div>
+			</div>
+
+			<div className="text-center relative z-10">
+				<div data-hero-item className="mb-6">
+					<span className="text-sm md:text-base text-wedding-gold font-medium tracking-wider uppercase">
+						Convidamos você para celebrar
+					</span>
 				</div>
 
-				<div className="text-center relative z-10">
-					<div className="mb-6">
-						<span className="text-sm md:text-base text-wedding-gold font-medium tracking-wider uppercase">
-							Convidamos você para celebrar
-						</span>
-					</div>
+				<h1 data-hero-item className="text-4xl md:text-6xl lg:text-7xl font-bold font-playfair mb-4 bg-gradient-to-r from-wedding-gold to-wedding-rose bg-clip-text text-transparent">
+					Luan & Cauane
+				</h1>
 
-					<h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-playfair mb-4 bg-gradient-to-r from-wedding-gold to-wedding-rose bg-clip-text text-transparent">
-						Luan & Cauane
-					</h1>
+				<div data-hero-line className="w-full max-w-lg mx-auto h-px bg-gradient-to-r from-transparent via-wedding-gold to-transparent mb-8"></div>
 
-					<div className="w-full max-w-lg mx-auto h-px bg-gradient-to-r from-transparent via-wedding-gold to-transparent mb-8"></div>
+				<p data-hero-item className="text-lg md:text-xl font-playfair mb-8 text-wedding-gold">
+					17 de Outubro de 2026
+				</p>
 
-					<p className="text-lg md:text-xl font-playfair mb-8 text-wedding-gold">
-						17 de Outubro de 2026
+				<div data-hero-item className="mb-8">
+					<p className="text-sm md:text-base text-gray-600 italic mb-2">
+						"Por isso o homem deixará pai e mãe e se unirá à sua mulher, e os
+						dois se tornarão uma só carne."
 					</p>
+					<p className="text-xs text-wedding-gold font-medium">
+						— Gênesis 2:24
+					</p>
+				</div>
 
-					<div className="mb-8">
-						<p className="text-sm md:text-base text-gray-600 italic mb-2">
-							"Por isso o homem deixará pai e mãe e se unirá à sua mulher, e os
-							dois se tornarão uma só carne."
-						</p>
-						<p className="text-xs text-wedding-gold font-medium">
-							— Gênesis 2:24
-						</p>
-					</div>
+				<div data-hero-item className="my-12">
+					<CountdownTimer />
+				</div>
 
-					<div className="my-12">
-						<CountdownTimer />
-					</div>
-
-				<div className="flex justify-center mt-8">
+			<div data-hero-item className="flex justify-center mt-8">
 					<div className="inline-flex flex-col sm:flex-row gap-4">
-					<button
-						onClick={scrollToRsvp}
-						className="btn-shine-white py-4 px-10 bg-gradient-to-r from-wedding-gold to-wedding-gold/90 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 font-medium text-lg"
-						onMouseMove={(e) => {
-							const r = e.currentTarget.getBoundingClientRect();
-							e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`);
-							e.currentTarget.style.setProperty('--y', `${e.clientY - r.top}px`);
-						}}
-					>
-						Confirmar Presença
-					</button>
-					<a
-						href="#presentes"
-						className="btn-shine-gold py-4 px-10 border-2 border-wedding-gold text-wedding-gold rounded-full shadow-md hover:shadow-lg transition-all duration-300 font-medium text-lg text-center"
-						onMouseMove={(e) => {
-							const r = e.currentTarget.getBoundingClientRect();
-							e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`);
-							e.currentTarget.style.setProperty('--y', `${e.clientY - r.top}px`);
-						}}
-					>
-						Lista de Presentes
-					</a>
+				<button
+					onClick={scrollToRsvp}
+					className="btn-shine-white py-4 px-10 bg-gradient-to-r from-wedding-gold to-wedding-gold/90 text-white rounded-full uppercase tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 font-medium text-lg"
+					onMouseMove={shineMove}
+				>
+					Confirmar Presença
+				</button>
+				<a
+					href="#presentes"
+					className="btn-shine-gold py-4 px-10 border-2 border-wedding-gold text-wedding-gold rounded-full uppercase tracking-wide shadow-md hover:shadow-lg transition-all duration-300 font-medium text-lg text-center"
+					onMouseMove={shineMove}
+				>
+					Lista de Presentes
+				</a>
 					</div>
 				</div>
 				</div>
@@ -552,14 +552,14 @@ const Index = () => {
 			{/* Gallery Section */}
 			<section id="galeria" className="py-20 bg-white">
 				<div className="container mx-auto px-4">
-					<RevealOnScroll>
-						<h2 className="text-3xl md:text-4xl font-playfair text-center mb-4">
-							Nossos Momentos
-						</h2>
-						<p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-							Alguns registros da nossa história juntos
-						</p>
-					</RevealOnScroll>
+			<RevealOnScroll>
+					<h2 data-gsap-title className="text-3xl md:text-4xl font-playfair text-center mb-4">
+						Nossos Momentos
+					</h2>
+					<p data-gsap-subtitle className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+						Alguns registros da nossa história juntos
+					</p>
+				</RevealOnScroll>
 					<ImageCarousel images={galleryImages} />
 				</div>
 			</section>
@@ -567,11 +567,11 @@ const Index = () => {
 			{/* Timeline Section */}
 			<section id="timeline" className="py-20 bg-white">
 				<div className="container mx-auto">
-					<RevealOnScroll>
-						<h2 className="text-3xl md:text-4xl font-playfair text-center mb-12">
-							Nossa Jornada
-						</h2>
-					</RevealOnScroll>
+				<RevealOnScroll>
+					<h2 data-gsap-title className="text-3xl md:text-4xl font-playfair text-center mb-12">
+						Nossa Jornada
+					</h2>
+				</RevealOnScroll>
 
 					<RevealOnScroll>
 						<Timeline />
@@ -582,13 +582,13 @@ const Index = () => {
 			{/* Ceremony Details */}
 			<section id="cerimonia" className="py-20 bg-white">
 				<div className="container mx-auto">
-					<RevealOnScroll>
-						<h2 className="text-3xl md:text-4xl font-playfair text-center mb-4">
-							Detalhes da Cerimônia
-						</h2>
-						<p className="text-center text-gray-600 mb-6 max-w-2xl mx-auto">
-							Junte-se a nós neste momento especial de amor e celebração
-						</p>
+				<RevealOnScroll>
+					<h2 data-gsap-title className="text-3xl md:text-4xl font-playfair text-center mb-4">
+						Detalhes da Cerimônia
+					</h2>
+					<p data-gsap-subtitle className="text-center text-gray-600 mb-6 max-w-2xl mx-auto">
+						Junte-se a nós neste momento especial de amor e celebração
+					</p>
 						<div className="text-center mb-12">
 							<p className="text-sm text-gray-500 italic mb-1">
 								"O amor é paciente, o amor é bondoso. Não inveja, não se
@@ -601,8 +601,8 @@ const Index = () => {
 					</RevealOnScroll>
 
 					<div className="max-w-4xl mx-auto">
-						<RevealOnScroll className="grid grid-cols-1 md:grid-cols-2 gap-8">
-							<div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-wedding-gold/20 hover:shadow-xl transition-all duration-300">
+					<RevealOnScroll className="grid grid-cols-1 md:grid-cols-2 gap-8">
+						<div data-gsap-card className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-wedding-gold/20 hover:shadow-xl transition-all duration-300">
 								<div className="w-16 h-16 bg-wedding-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
 									<svg
 										className="w-8 h-8 text-wedding-gold"
@@ -627,38 +627,38 @@ const Index = () => {
 								<p className="text-gray-600">Sábado, às 17:00</p>
 							</div>
 
-							<div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-wedding-gold/20 hover:shadow-xl transition-all duration-300">
-								<div className="w-16 h-16 bg-wedding-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
-									<svg
-										className="w-8 h-8 text-wedding-gold"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-										/>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-										/>
-									</svg>
-								</div>
-								<h3 className="text-xl font-playfair mb-3 text-wedding-gold">
-									Local
-								</h3>
-								<p className="mb-2 font-semibold text-lg">
-									R. Xavantes, 922 - Vila Tupi
-								</p>
-								<p className="text-gray-600">Praia Grande - SP, 11703-300</p>
+						<div data-gsap-card className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-wedding-gold/20 hover:shadow-xl transition-all duration-300">
+							<div className="w-16 h-16 bg-wedding-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+								<svg
+									className="w-8 h-8 text-wedding-gold"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+									/>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+									/>
+								</svg>
 							</div>
+							<h3 className="text-xl font-playfair mb-3 text-wedding-gold">
+								Local
+							</h3>
+							<p className="mb-2 font-semibold text-lg">
+								R. Xavantes, 922 - Vila Tupi
+							</p>
+							<p className="text-gray-600">Praia Grande - SP, 11703-300</p>
+						</div>
 
-							<div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-wedding-gold/20 hover:shadow-xl transition-all duration-300 md:col-span-2">
+						<div data-gsap-card className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-wedding-gold/20 hover:shadow-xl transition-all duration-300 md:col-span-2">
 								<div className="w-16 h-16 bg-wedding-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
 									<svg
 										className="w-8 h-8 text-wedding-gold"
@@ -688,21 +688,21 @@ const Index = () => {
 			{/* Location */}
 			<section id="localizacao" className="py-20 bg-white">
 				<div className="container mx-auto">
-					<RevealOnScroll>
-						<h2 className="text-3xl md:text-4xl font-playfair text-center mb-12">
-							Localização
-						</h2>
-					</RevealOnScroll>
+				<RevealOnScroll>
+					<h2 data-gsap-title className="text-3xl md:text-4xl font-playfair text-center mb-12">
+						Localização
+					</h2>
+				</RevealOnScroll>
 
-					<RevealOnScroll className="max-w-4xl mx-auto w-full">
-						<div className="rounded-lg overflow-hidden shadow-md w-full max-w-full">
+				<RevealOnScroll className="max-w-4xl mx-auto w-full">
+					<div data-gsap-map className="rounded-lg overflow-hidden shadow-md w-full max-w-full">
 							<iframe
 								src="https://maps.google.com/maps?q=R.+Xavantes,+922+-+Vila+Tupi,+Praia+Grande+-+SP,+11703-300&t=&z=15&ie=UTF8&iwloc=&output=embed"
 								width="100%"
 								height="600"
 								style={{ border: 0, maxWidth: '100%' }}
 								allowFullScreen={true}
-								loading="lazy"
+
 								referrerPolicy="no-referrer-when-downgrade"
 							></iframe>
 						</div>
@@ -721,18 +721,18 @@ const Index = () => {
 		{/* Gift List Section */}
 		<section id="presentes" className="py-8 bg-white" ref={sectionRef}>
 				<div className="container mx-auto">
-					<div className="text-center mb-8">
-						<div className="inline-flex items-center justify-center w-16 h-16 bg-wedding-gold/10 rounded-full mb-6">
-							<Gift className="w-8 h-8 text-wedding-gold" />
-						</div>
-						<h1 className="text-4xl md:text-5xl font-playfair mb-4 bg-gradient-to-r from-wedding-gold to-wedding-rose bg-clip-text text-transparent">
-							Lista de Presentes
-						</h1>
-						<p className="text-lg text-gray-600 max-w-2xl mx-auto">
-							Ajude-nos a construir nosso lar com presentes especiais. Escolha
-							algo que faça sentido para você!
-						</p>
+			<div data-gsap-gift-header className="text-center mb-8">
+					<div className="inline-flex items-center justify-center w-16 h-16 bg-wedding-gold/10 rounded-full mb-6">
+						<Gift className="w-8 h-8 text-wedding-gold" />
 					</div>
+					<h1 className="text-4xl md:text-5xl font-playfair mb-4 bg-gradient-to-r from-wedding-gold to-wedding-rose bg-clip-text text-transparent">
+						Lista de Presentes
+					</h1>
+					<p className="text-lg text-gray-600 max-w-2xl mx-auto">
+						Ajude-nos a construir nosso lar com presentes especiais. Escolha
+						algo que faça sentido para você!
+					</p>
+				</div>
 
 					<div className="flex flex-col lg:flex-row gap-6">
 						{/* Sidebar Filters */}
@@ -905,7 +905,7 @@ const Index = () => {
 													src={gift.image}
 													alt={gift.name}
 													className="w-full h-full object-cover"
-													loading="lazy"
+
 												/>
 											) : (
 												<div className="w-full h-full flex items-center justify-center">
@@ -922,12 +922,13 @@ const Index = () => {
 											<p className="text-sm md:text-lg font-semibold text-wedding-gold mb-4">
 												{formatPrice(gift.minValue, gift.maxValue)}
 											</p>
-											<Button
-												onClick={() => handleGiftClick(gift)}
-												className="w-full bg-wedding-gold hover:bg-wedding-gold/90 text-white text-xs md:text-sm py-2 md:py-3 mt-auto"
-											>
-												Presentear
-											</Button>
+										<Button
+											onClick={() => handleGiftClick(gift)}
+											className="btn-shine-white w-full bg-wedding-gold hover:bg-wedding-gold/90 text-white text-xs md:text-sm py-2 md:py-3 mt-auto"
+											onMouseMove={shineMove}
+										>
+											Presentear
+										</Button>
 										</CardContent>
 									</Card>
 								))}
@@ -941,7 +942,7 @@ const Index = () => {
 													src={pixGift.image}
 													alt={pixGift.name}
 													className="w-full h-full object-cover"
-													loading="lazy"
+
 												/>
 											) : (
 												<div className="w-full h-full flex items-center justify-center">
@@ -961,12 +962,13 @@ const Index = () => {
 											<p className="text-sm md:text-lg font-semibold text-wedding-gold mb-4">
 												{formatPrice(pixGift.minValue, pixGift.maxValue)}
 											</p>
-											<Button
-												onClick={() => handleGiftClick(pixGift)}
-												className="w-full bg-wedding-gold hover:bg-wedding-gold/90 text-white text-xs md:text-sm py-2 md:py-3 mt-auto"
-											>
-												Presentear
-											</Button>
+										<Button
+											onClick={() => handleGiftClick(pixGift)}
+											className="btn-shine-white w-full bg-wedding-gold hover:bg-wedding-gold/90 text-white text-xs md:text-sm py-2 md:py-3 mt-auto"
+											onMouseMove={shineMove}
+										>
+											Presentear
+										</Button>
 										</CardContent>
 									</Card>
 								)}
@@ -979,14 +981,15 @@ const Index = () => {
 									<p className="text-lg text-gray-600 mb-4">
 										Nenhum presente encontrado com os filtros aplicados.
 									</p>
-									<Button
-										variant="outline"
-										onClick={clearFilters}
-										className="text-wedding-gold border-wedding-gold hover:bg-wedding-gold/10"
-									>
-										<X className="w-4 h-4 mr-2" />
-										Limpar filtros
-									</Button>
+								<Button
+									variant="outline"
+									onClick={clearFilters}
+									className="btn-shine-gold text-wedding-gold border-wedding-gold hover:bg-wedding-gold/10"
+									onMouseMove={shineMove}
+								>
+									<X className="w-4 h-4 mr-2" />
+									Limpar filtros
+								</Button>
 								</div>
 							)}
 						</div>
@@ -997,10 +1000,10 @@ const Index = () => {
 			{/* RSVP Form */}
 		<section id="rsvp" className="py-20 bg-white">
 			<div className="container mx-auto">
-				<RevealOnScroll>
-					<h2 className="text-3xl md:text-4xl font-playfair text-center mb-4">
-						Confirme sua Presença
-					</h2>
+			<RevealOnScroll>
+				<h2 data-gsap-title className="text-3xl md:text-4xl font-playfair text-center mb-4">
+					Confirme sua Presença
+				</h2>
 					<p className="text-center max-w-2xl mx-auto mb-8 text-gray-600">
 						Gostaríamos muito de contar com a sua presença em nosso dia
 						especial. Por favor, confirme abaixo até 17 de Setembro de 2026.
@@ -1008,9 +1011,9 @@ const Index = () => {
 					<div className="w-24 h-1 bg-gradient-to-r from-wedding-gold to-wedding-rose mx-auto mb-12"></div>
 				</RevealOnScroll>
 
-				<RevealOnScroll>
-					<div className="mx-auto">
-						<RsvpForm />
+			<RevealOnScroll>
+				<div data-gsap-rsvp className="mx-auto">
+					<RsvpForm />
 					</div>
 				</RevealOnScroll>
 			</div>
@@ -1076,20 +1079,22 @@ const Index = () => {
 
 					{/* Botões */}
 					<div className="flex gap-3 pt-1">
-						<Button
-							variant="outline"
-							onClick={() => { setIsModalOpen(false); resetPaymentStates(); }}
-							className="flex-1 border-wedding-gold/40 text-gray-600 hover:border-wedding-gold hover:text-wedding-gold hover:bg-wedding-gold/5 rounded-xl h-11"
-						>
-							Cancelar
-						</Button>
-						<Button
-							onClick={() => { if (selectedGift) openPixModal(selectedGift, paymentAmount); }}
-							disabled={paymentAmount <= 0}
-							className="flex-1 bg-wedding-gold hover:bg-wedding-gold/90 text-white rounded-xl h-11 font-semibold shadow-md disabled:opacity-40"
-						>
-							Continuar
-						</Button>
+					<Button
+						variant="outline"
+						onClick={() => { setIsModalOpen(false); resetPaymentStates(); }}
+						className="btn-shine-gold flex-1 border-wedding-gold/40 text-gray-600 hover:border-wedding-gold hover:text-wedding-gold hover:bg-wedding-gold/5 h-11"
+						onMouseMove={shineMove}
+					>
+						Cancelar
+					</Button>
+					<Button
+						onClick={() => { if (selectedGift) openPixModal(selectedGift, paymentAmount); }}
+						disabled={paymentAmount <= 0}
+						className="btn-shine-white flex-1 bg-wedding-gold hover:bg-wedding-gold/90 text-white h-11 font-semibold shadow-md disabled:opacity-40"
+						onMouseMove={shineMove}
+					>
+						Continuar
+					</Button>
 					</div>
 				</div>
 			</DialogContent>
@@ -1136,28 +1141,30 @@ const Index = () => {
 					</div>
 
 				<div className="flex gap-3 mt-1">
-					<Button
-						variant="outline"
-						onClick={copyPixCode}
-						className={`flex-1 rounded-xl h-11 font-semibold transition-all ${copied ? 'border-green-400 bg-green-50 text-green-600 hover:bg-green-50 hover:text-green-600' : 'border-wedding-gold/40 text-wedding-gold hover:bg-wedding-gold/10 hover:border-wedding-gold hover:text-wedding-gold'}`}
-					>
-						{copied ? <><Check className="w-4 h-4 mr-2" />Copiado!</> : <><Copy className="w-4 h-4 mr-2" />Copiar chave</>}
-					</Button>
-					<Button
-						onClick={() => { setShowPixModal(false); resetPaymentStates(); }}
-						className="flex-1 bg-wedding-gold hover:bg-wedding-gold/90 text-white rounded-xl h-11 font-semibold shadow-md"
-					>
-						Concluir
-					</Button>
+				<Button
+					variant="outline"
+					onClick={copyPixCode}
+					className={`btn-shine-gold flex-1 h-11 font-semibold transition-all ${copied ? 'border-green-400 bg-green-50 text-green-600 hover:bg-green-50 hover:text-green-600' : 'border-wedding-gold/40 text-wedding-gold hover:bg-wedding-gold/10 hover:border-wedding-gold hover:text-wedding-gold'}`}
+					onMouseMove={shineMove}
+				>
+					{copied ? <><Check className="w-4 h-4 mr-2" />Copiado!</> : <><Copy className="w-4 h-4 mr-2" />Copiar chave</>}
+				</Button>
+				<Button
+					onClick={() => { setShowPixModal(false); resetPaymentStates(); }}
+					className="btn-shine-white flex-1 bg-wedding-gold hover:bg-wedding-gold/90 text-white h-11 font-semibold shadow-md"
+					onMouseMove={shineMove}
+				>
+					Concluir
+				</Button>
 				</div>
 				</div>
 			</DialogContent>
 		</Dialog>
 
-			{/* Footer */}
-			<footer className="py-20 bg-white text-center">
-				<div className="container mx-auto">
-					<div className="max-w-2xl mx-auto">
+		{/* Footer */}
+		<footer className="py-20 bg-white text-center">
+			<div className="container mx-auto">
+				<div data-gsap-footer className="max-w-2xl mx-auto">
 						<h2 className="text-3xl font-playfair mb-4 bg-gradient-to-r from-wedding-gold to-wedding-rose bg-clip-text text-transparent">
 							Luan & Cauane
 						</h2>

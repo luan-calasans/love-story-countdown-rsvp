@@ -25,11 +25,18 @@ const PageLoader = () => {
   const [petals] = useState<Petal[]>(generatePetals);
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
     const fadeTimer = setTimeout(() => setFadeOut(true), 3700);
-    const hideTimer = setTimeout(() => setVisible(false), 4400);
+    const hideTimer = setTimeout(() => {
+      setVisible(false);
+      document.body.style.overflow = '';
+    }, 4400);
+
     return () => {
       clearTimeout(fadeTimer);
       clearTimeout(hideTimer);
+      document.body.style.overflow = '';
     };
   }, []);
 

@@ -28,7 +28,6 @@ import {
 } from '@/components/ui/dialog';
 import { Search, Gift, X, Filter, ArrowUpDown, Copy, Check } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
-import { assetUrl } from '@/lib/assetUrl';
 
 const PIX_KEY = 'luancalasans.site@gmail.com';
 
@@ -43,181 +42,78 @@ interface GiftItem {
 }
 
 const gifts: GiftItem[] = [
-  {
-    id: '1',
-    name: 'Lenços "Lágrimas de Emoção"',
-    description: 'Para secar as lágrimas ao ver a noiva chegar',
-    minValue: 14.90,
-    maxValue: 14.90,
-    observation: 'Presente acessível e simbólico',
-    image: '/presentes/Lenços-Lágrimas-de-Emoção.png',
-  },
-  {
-    id: '2',
-    name: 'Caminha para Toalhas',
-    description: 'Lugar digno para suas toalhas de banho',
-    minValue: 2190.73,
-    maxValue: 2190.73,
-    observation: 'Suporte/organizador estiloso',
-    image: '/presentes/Caminha-para-Toalhas.png',
-  },
-  {
-    id: '3',
-    name: 'Luz Noturna "Amor Perene"',
-    description: 'Ilumina a casa e o coração',
-    minValue: 49.90,
-    maxValue: 49.90,
-    observation: 'Luminária decorativa',
-    image: '/presentes/Luz-Noturna-Amor-Perene.png',
-  },
-  {
-    id: '4',
-    name: 'Cesta de Café da Manhã a Dois',
-    description: 'Comece os domingos com amor',
-    minValue: 250.00,
-    maxValue: 250.00,
-    observation: 'Canecas + cafés + petiscos',
-    image: '/presentes/Cesta-de-Café-da-Manhã-a-Dois.png',
-  },
-  {
-    id: '5',
-    name: 'Kit "Maratona de Filmes"',
-    description: 'Pipoca gourmet, manta e diversão garantida',
-    minValue: 200,
-    maxValue: 200,
-    observation: 'Noites no sofá com estilo',
-    image: '/presentes/Kit-Maratona-deFilmes.png',
-  },
-  {
-    id: '6',
-    name: 'Conjunto de Taças "Brinde ao Amor"',
-    description: '',
-    minValue: 60.00,
-    maxValue: 60.00,
-    observation: 'Para suco de uva ou refrigerante, vigia crente!',
-    image: '/presentes/Conjunto-de-Taças-Brinde-ao-Amor.png',
-  },
-  {
-    id: '7',
-    name: 'Almoço do casal na viagem dos sonhos',
-    description: 'Ajuda na lua de mel',
-    minValue: 200.00,
-    maxValue: 200.00,
-    observation: 'Cotas flexíveis',
-    image: '/presentes/Almoço-do-casal-na-viagem-dos-sonhos.png',
-  },
-  {
-    id: '8',
-    name: 'Aspirador Robô Inteligente',
-    description: 'Ajuda nas tarefas domésticas',
-    minValue: 1399.90,
-    maxValue: 1399.90,
-    observation: 'Tecnologia e praticidade',
-    image: '/presentes/Aspirador-Robô-Inteligente.png',
-  },
-  {
-    id: '9',
-    name: 'Cafeteira Barista em Casa',
-    description: 'Café de qualidade toda manhã',
-    minValue: 3588.49,
-    maxValue: 3588.49,
-    observation: 'Espresso ou cápsulas',
-    image: '/presentes/Cafeteira-Barista-em-Casa.png',
-  },
-  {
-    id: '11',
-    name: 'Jogo de Panelas',
-    description: 'Masterchef dos Apaixonados',
-    minValue: 300,
-    maxValue: 800,
-    observation: 'Utensílios de cozinha de qualidade',
-    image: '/presentes/Jogo-de-Panelas.png',
-  },
-  {
-    id: '12',
-    name: 'Teclado Gamer',
-    description: 'Para programar a noite enquanto a esposa dorme',
-    minValue: 529.99,
-    maxValue: 529.99,
-    observation: 'Teclado mecânico RGB top',
-    image: '/presentes/Teclado-Gamer.png',
-  },
-  {
-    id: '13',
-    name: 'Mouse e Headset Gamer Completo',
-    description: 'Upgrade do setup para dominar jogos',
-    minValue: 1155.25,
-    maxValue: 1155.25,
-    observation: 'Combo para jogo intenso',
-    image: '/presentes/Mouse-e-Headset-Gamer-Completo.png',
-  },
-  {
-    id: '14',
-    name: 'Cadeira "Trono do Noivo"',
-    description: 'Conforto real para longas partidas',
-    minValue: 715.99,
-    maxValue: 715.99,
-    observation: 'Conforto profissional para gamers',
-    image: '/presentes/Cadeira-Trono-do-Noivo.png',
-  },
-  {
-    id: '15',
-    name: 'Chuteira Nike "Permissão Concedida"',
-    description: 'Para jogar bola (quando a noiva permitir)',
-    minValue: 449.99,
-    maxValue: 449.99,
-    observation: 'Chuteira esportiva de qualidade',
-    image: '/presentes/Chuteira-Nike-Permissão-Concedida.png',
-  },
-  {
-    id: '16',
-    name: 'Smart TV 55" 4K',
-    description: 'Assistir filmes, séries e jogos com estilo',
-    minValue: 2123.87,
-    maxValue: 2123.87,
-    observation: 'Central de entretenimento da sala',
-    image: '/presentes/Smart-TV-55-4K.png',
-  },
-  {
-    id: '17',
-    name: 'Console de Última Geração',
-    description: 'Play & relax em casal (ou sozinho)',
-    minValue: 4000.00,
-    maxValue: 4000.00,
-    observation: 'PS5',
-    image: '/presentes/Console-de-Última-Geração.png',
-  },
-  {
-    id: '18',
-    name: 'Viagem de Fim de Semana "Romance + Aventura"',
-    description: 'Hotel + passeio',
-    minValue: 1000.00,
-    maxValue: 1000.00,
-    observation: 'Experiência memorável',
-    image: '/presentes/Viagem-de-Fim-de-Semana-Romance-Aventura.png',
-  },
-  {
-    id: '19',
-    name: 'Máquina de Lavar Roupa',
-    description: 'A parceira no lar',
-    minValue: 2799.90,
-    maxValue: 2799.90,
-    observation: 'Alta tecnologia e praticidade',
-    image: '/presentes/Máquina-de-Lavar-Roupa.png',
-  },
-].map((gift) => ({
-  ...gift,
-  image: gift.image ? assetUrl(gift.image) : undefined,
-}));
+  { id: '1',  name: 'Rack de TV',                               description: '', minValue: 800,  maxValue: 800,  observation: '' },
+  { id: '2',  name: 'TV',                                       description: '', minValue: 2500, maxValue: 2500, observation: '' },
+  { id: '3',  name: 'Sofá',                                     description: '', minValue: 2500, maxValue: 2500, observation: '' },
+  { id: '4',  name: 'Buffet Aparador',                          description: '', minValue: 700,  maxValue: 700,  observation: '' },
+  { id: '5',  name: 'Interfone eletrônico',                     description: '', minValue: 200,  maxValue: 200,  observation: '' },
+  { id: '6',  name: 'Caixa de som bluetooth',                   description: '', minValue: 400,  maxValue: 400,  observation: '' },
+  { id: '7',  name: 'Câmera',                                   description: '', minValue: 200,  maxValue: 200,  observation: '' },
+  { id: '8',  name: 'Assistente virtual Alexa',                 description: '', minValue: 460,  maxValue: 460,  observation: '' },
+  { id: '9',  name: 'Ventilador',                               description: '', minValue: 160,  maxValue: 160,  observation: '' },
+  { id: '10', name: 'Umidificador de ar',                       description: '', minValue: 130,  maxValue: 130,  observation: '' },
+  { id: '11', name: 'Purificador de água',                      description: '', minValue: 470,  maxValue: 470,  observation: '' },
+  { id: '12', name: 'Mesa de cozinha',                          description: '', minValue: 900,  maxValue: 900,  observation: '' },
+  { id: '13', name: '4 cadeiras',                               description: '', minValue: 637,  maxValue: 637,  observation: '' },
+  { id: '14', name: 'Geladeira',                                description: '', minValue: 3500, maxValue: 3500, observation: '' },
+  { id: '15', name: 'Fogão',                                    description: '', minValue: 1200, maxValue: 1200, observation: '' },
+  { id: '16', name: 'Micro-ondas',                              description: '', minValue: 700,  maxValue: 700,  observation: '' },
+  { id: '17', name: 'Air fryer',                                description: '', minValue: 500,  maxValue: 500,  observation: '' },
+  { id: '18', name: 'Liquidificador',                           description: '', minValue: 180,  maxValue: 180,  observation: '' },
+  { id: '19', name: 'Lava Louça',                               description: '', minValue: 4500, maxValue: 4500, observation: '' },
+  { id: '20', name: 'Batedeira',                                description: '', minValue: 100,  maxValue: 100,  observation: '' },
+  { id: '21', name: 'Mixer',                                    description: '', minValue: 170,  maxValue: 170,  observation: '' },
+  { id: '22', name: 'Chaleira elétrica',                        description: '', minValue: 150,  maxValue: 150,  observation: '' },
+  { id: '23', name: 'Moedor de café',                           description: '', minValue: 190,  maxValue: 190,  observation: '' },
+  { id: '24', name: 'Escorredor de louças',                     description: '', minValue: 80,   maxValue: 80,   observation: '' },
+  { id: '25', name: 'Tábua de corte',                           description: '', minValue: 50,   maxValue: 50,   observation: '' },
+  { id: '26', name: 'Forma de pudim',                           description: '', minValue: 50,   maxValue: 50,   observation: '' },
+  { id: '27', name: 'Forma de bolo',                            description: '', minValue: 30,   maxValue: 30,   observation: '' },
+  { id: '28', name: 'Assadeira grande e média',                 description: '', minValue: 70,   maxValue: 70,   observation: '' },
+  { id: '29', name: 'Panela de pressão',                        description: '', minValue: 200,  maxValue: 200,  observation: '' },
+  { id: '30', name: 'Churrasqueira',                            description: '', minValue: 300,  maxValue: 300,  observation: '' },
+  { id: '31', name: 'Garrafa térmica',                          description: '', minValue: 70,   maxValue: 70,   observation: '' },
+  { id: '32', name: 'Cama',                                     description: '', minValue: 1200, maxValue: 1200, observation: '' },
+  { id: '33', name: 'Colchão',                                  description: '', minValue: 2000, maxValue: 2000, observation: '' },
+  { id: '34', name: 'Jogo de lençol',                           description: '', minValue: 250,  maxValue: 250,  observation: '' },
+  { id: '35', name: 'Edredom / cobertor',                       description: '', minValue: 300,  maxValue: 300,  observation: '' },
+  { id: '36', name: 'Travesseiros (2)',                         description: '', minValue: 250,  maxValue: 250,  observation: '' },
+  { id: '37', name: 'Protetor de colchão',                      description: '', minValue: 120,  maxValue: 120,  observation: '' },
+  { id: '38', name: 'Almofadas decorativas',                    description: '', minValue: 150,  maxValue: 150,  observation: '' },
+  { id: '39', name: 'Guarda-roupa',                             description: '', minValue: 2500, maxValue: 2500, observation: '' },
+  { id: '40', name: 'Sapateira',                                description: '', minValue: 300,  maxValue: 300,  observation: '' },
+  { id: '41', name: 'Chuveiro',                                 description: '', minValue: 250,  maxValue: 250,  observation: '' },
+  { id: '42', name: 'Torneira de banheiro',                     description: '', minValue: 180,  maxValue: 180,  observation: '' },
+  { id: '43', name: 'Espelho de banheiro',                      description: '', minValue: 300,  maxValue: 300,  observation: '' },
+  { id: '44', name: 'Suporte de shampoo',                       description: '', minValue: 80,   maxValue: 80,   observation: '' },
+  { id: '45', name: 'Tapete de banheiro',                       description: '', minValue: 80,   maxValue: 80,   observation: '' },
+  { id: '46', name: 'Toalhas de rosto',                         description: '', minValue: 100,  maxValue: 100,  observation: '' },
+  { id: '47', name: 'Toalhas de banho',                         description: '', minValue: 250,  maxValue: 250,  observation: '' },
+  { id: '48', name: 'Porta escova de dente',                    description: '', minValue: 50,   maxValue: 50,   observation: '' },
+  { id: '49', name: 'Máquina de lavar',                         description: '', minValue: 2500, maxValue: 2500, observation: '' },
+  { id: '50', name: 'Varal ou estendal',                        description: '', minValue: 150,  maxValue: 150,  observation: '' },
+  { id: '51', name: 'Aspirador vertical',                       description: '', minValue: 500,  maxValue: 500,  observation: '' },
+  { id: '52', name: 'Robô inteligente varre/passa pano/aspira', description: '', minValue: 1500, maxValue: 1500, observation: '' },
+  { id: '53', name: 'Vassoura',                                 description: '', minValue: 40,   maxValue: 40,   observation: '' },
+  { id: '54', name: 'Rodo',                                     description: '', minValue: 30,   maxValue: 30,   observation: '' },
+  { id: '55', name: 'Pá',                                       description: '', minValue: 20,   maxValue: 20,   observation: '' },
+  { id: '56', name: 'Mesa externa',                             description: '', minValue: 700,  maxValue: 700,  observation: '' },
+  { id: '57', name: 'Kit cadeira e mesa externa',               description: '', minValue: 1200, maxValue: 1200, observation: '' },
+  { id: '58', name: 'Cadeira de bambu alumínio (4 lugares)',    description: '', minValue: 1500, maxValue: 1500, observation: '' },
+  { id: '59', name: 'Ajudar no terno do noivo',                 description: '', minValue: 300,  maxValue: 300,  observation: '' },
+  { id: '60', name: 'Ajudar com a festa',                       description: '', minValue: 600,  maxValue: 600,  observation: '' },
+  { id: '61', name: 'Ajudar no vestido da noiva',               description: '', minValue: 300,  maxValue: 300,  observation: '' },
+  { id: '62', name: 'Cabelo e make da noiva',                   description: '', minValue: 600,  maxValue: 600,  observation: '' },
+  { id: '63', name: 'Buquê da noiva',                           description: '', minValue: 200,  maxValue: 200,  observation: '' },
+];
 
 const pixGift: GiftItem = {
   id: 'pix',
-  name: 'Vale PIX',
+  name: 'Pix livre com mensagem',
   description: 'Contribua com o valor que desejar',
   minValue: 0,
   maxValue: 0,
-  observation: 'Presente flexível - qualquer valor é bem-vindo',
-  image: assetUrl('/presentes/Vale-PIX.png'),
+  observation: '',
 };
 
 type SortOption = 'name-asc' | 'name-desc' | 'price-asc' | 'price-desc';
@@ -901,60 +797,26 @@ const Index = () => {
                     key={gift.id}
                     className='bg-white/80 backdrop-blur-sm border-wedding-gold/20 hover:shadow-xl transition-all duration-300 flex flex-col h-full'
                   >
-                    <div className='aspect-square bg-gray-200 rounded-t-lg flex items-center justify-center overflow-hidden'>
-                      {gift.image ? (
-                        <img 
-                          src={gift.image} 
-                          alt={gift.name}
-                          className='w-full h-full object-cover'
-                        />
-                      ) : (
-                        <Gift className='w-12 h-12 md:w-16 md:h-16 text-gray-400' />
-                      )}
-                    </div>
                     <CardHeader className='flex-shrink-0'>
                       <CardTitle className='text-wedding-gold line-clamp-2 text-sm md:text-base'>{gift.name}</CardTitle>
-                      {gift.description && (
-                        <CardDescription className='text-gray-700 line-clamp-2 text-xs md:text-sm'>
-                          {gift.description}
-                        </CardDescription>
-                      )}
                     </CardHeader>
                     <CardContent className='flex flex-col flex-grow justify-between'>
-                      <div>
-                        <p className='text-sm md:text-lg font-semibold text-wedding-gold mb-2'>
-                          {formatPrice(gift.minValue, gift.maxValue)}
-                        </p>
-                        {gift.observation && (
-                          <p className='text-xs md:text-sm text-gray-600 italic line-clamp-2 mb-4'>
-                            {gift.observation}
-                          </p>
-                        )}
-                      </div>
+                      <p className='text-sm md:text-lg font-semibold text-wedding-gold mb-4'>
+                        {formatPrice(gift.minValue, gift.maxValue)}
+                      </p>
                       <Button
                         onClick={() => handleGiftClick(gift)}
                         className='w-full bg-wedding-gold hover:bg-wedding-gold/90 text-white text-xs md:text-sm py-2 md:py-3 mt-auto'
                       >
-                        PRESENTEAR COM PIX
+                        Presentear
                       </Button>
                     </CardContent>
                   </Card>
                 ))}
 
-                {/* Vale PIX - aparece quando não há filtros, sempre no final */}
+                {/* Pix livre - aparece quando não há filtros, sempre no final */}
                 {shouldShowPix && (
                   <Card className='bg-white/80 backdrop-blur-sm border-wedding-gold/20 hover:shadow-xl transition-all duration-300 flex flex-col h-full'>
-                    <div className='aspect-square bg-gray-200 rounded-t-lg flex items-center justify-center overflow-hidden'>
-                      {pixGift.image ? (
-                        <img 
-                          src={pixGift.image} 
-                          alt={pixGift.name}
-                          className='w-full h-full object-cover'
-                        />
-                      ) : (
-                        <Gift className='w-12 h-12 md:w-16 md:h-16 text-gray-400' />
-                      )}
-                    </div>
                     <CardHeader className='flex-shrink-0'>
                       <CardTitle className='text-wedding-gold line-clamp-2 text-sm md:text-base'>{pixGift.name}</CardTitle>
                       <CardDescription className='text-gray-700 line-clamp-2 text-xs md:text-sm'>
@@ -962,19 +824,14 @@ const Index = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className='flex flex-col flex-grow justify-between'>
-                      <div>
-                        <p className='text-sm md:text-lg font-semibold text-wedding-gold mb-2'>
-                          {formatPrice(pixGift.minValue, pixGift.maxValue)}
-                        </p>
-                        <p className='text-xs md:text-sm text-gray-600 italic line-clamp-2 mb-4'>
-                          {pixGift.observation}
-                        </p>
-                      </div>
+                      <p className='text-sm md:text-lg font-semibold text-wedding-gold mb-4'>
+                        {formatPrice(pixGift.minValue, pixGift.maxValue)}
+                      </p>
                       <Button
                         onClick={() => handleGiftClick(pixGift)}
                         className='w-full bg-wedding-gold hover:bg-wedding-gold/90 text-white text-xs md:text-sm py-2 md:py-3 mt-auto'
                       >
-                        PRESENTEAR COM PIX
+                        Presentear
                       </Button>
                     </CardContent>
                   </Card>

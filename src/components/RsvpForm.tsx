@@ -66,7 +66,7 @@ const RsvpForm = () => {
 
     // Encode the message for WhatsApp URL
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/5513991903515?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/5513974069615?text=${encodedMessage}`;
 
     // Open WhatsApp in a new tab
     window.open(whatsappUrl, '_blank');

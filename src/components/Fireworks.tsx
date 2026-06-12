@@ -25,14 +25,14 @@ const Fireworks: React.FC = () => {
   const [particles, setParticles] = useState<Particle[]>([]);
 
   const colors = [
-    '#a6573d', // Terracota
-    '#e3735e', // Terracota clara
-    '#f2b3a0', // Terracota pastel
-    '#c96a4e', // Terracota média
-    '#6b863b', // Verde oliva
-    '#8fbf6f', // Verde oliva claro
-    '#aed694', // Verde oliva pastel
-    '#55702c', // Verde oliva escuro
+    '#B66A4A', // Terracota queimado
+    '#D9A17E', // Argila suave (terracota claro)
+    '#E5C0A6', // Terracota pastel
+    '#C57E5C', // Terracota média
+    '#5F6F52', // Oliva profundo
+    '#A9B388', // Sálvia (verde oliva claro)
+    '#C2CBA6', // Verde oliva pastel
+    '#4C5A42', // Verde oliva escuro
   ];
 
   useEffect(() => {

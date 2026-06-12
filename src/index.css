@@ -9,36 +9,41 @@ body {
 
 @layer base {
 	:root {
-		--background: 53 24% 97%;
-		--foreground: 24 15% 20%;
+		/* Off-white / branco quente (#FAF7F0) */
+		--background: 42 50% 96%;
+		/* Marrom grafite (#3F3A34) */
+		--foreground: 33 10% 23%;
 
-		--card: 0 0% 100%;
-		--card-foreground: 24 15% 20%;
+		/* Off-white (#FAF7F0) */
+		--card: 42 50% 96%;
+		--card-foreground: 33 10% 23%;
 
-		--popover: 0 0% 100%;
-		--popover-foreground: 24 15% 20%;
+		--popover: 42 50% 96%;
+		--popover-foreground: 33 10% 23%;
 
-		/* Terracota (#a6573d) */
-		--primary: 15 46% 45%;
-		--primary-foreground: 0 0% 100%;
+		/* Terracota queimado (#B66A4A) */
+		--primary: 18 43% 50%;
+		--primary-foreground: 42 50% 96%;
 
-		/* Terracota clara (#e3735e) em tom pastel */
-		--secondary: 9 65% 86%;
-		--secondary-foreground: 13 45% 28%;
+		/* Argila suave (#D9A17E) */
+		--secondary: 23 54% 67%;
+		--secondary-foreground: 33 10% 23%;
 
-		--muted: 60 16% 92%;
-		--muted-foreground: 40 8% 42%;
+		/* Areia (#F4EFE6) */
+		--muted: 39 39% 93%;
+		--muted-foreground: 32 12% 42%;
 
-		/* Verde oliva (#6b863b) */
-		--accent: 82 39% 38%;
-		--accent-foreground: 0 0% 100%;
+		/* Oliva profundo (#5F6F52) */
+		--accent: 93 15% 38%;
+		--accent-foreground: 42 50% 96%;
 
 		--destructive: 0 84.2% 60.2%;
 		--destructive-foreground: 210 40% 98%;
 
-		--border: 53 18% 87%;
-		--input: 53 18% 87%;
-		--ring: 15 42% 58%;
+		/* Bege cinza (#C8B8A6) */
+		--border: 32 24% 82%;
+		--input: 32 24% 82%;
+		--ring: 18 43% 55%;
 
 		--radius: 0.5rem;
 	}
@@ -126,7 +131,7 @@ html {
 	border-radius: inherit;
 	background: radial-gradient(
 		circle 90px at var(--x) var(--y),
-		rgba(166, 87, 61, 0.3),
+		rgba(182, 106, 74, 0.3),
 		transparent 70%
 	);
 	opacity: 0;
@@ -150,7 +155,7 @@ html {
 	border-radius: inherit;
 	background: radial-gradient(
 		circle 90px at var(--x) var(--y),
-		rgba(107, 134, 59, 0.3),
+		rgba(95, 111, 82, 0.3),
 		transparent 70%
 	);
 	opacity: 0;

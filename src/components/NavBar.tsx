@@ -74,7 +74,7 @@ const NavBar = () => {
       <nav
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-border',
-          'bg-wedding-cream/95 dark:bg-[#111827]/95 backdrop-blur-sm',
+          'bg-wedding-cream/95 dark:bg-[#3F3A34]/95 backdrop-blur-sm',
           scrolled ? 'shadow-md py-3' : 'py-4'
         )}
       >
@@ -120,7 +120,7 @@ const NavBar = () => {
             menuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
           )}
         >
-          <ul className="flex flex-col border-t border-wedding-gold/20 bg-wedding-cream/98 dark:bg-[#111827]/98 px-4 py-2">
+          <ul className="flex flex-col border-t border-wedding-gold/20 bg-wedding-cream/98 dark:bg-[#3F3A34]/98 px-4 py-2">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <button

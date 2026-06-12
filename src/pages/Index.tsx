@@ -839,7 +839,7 @@ const Index = () => {
 	}, [searchText, priceRange, sortBy]);
 
 	const formatPrice = (min: number, max: number) => {
-		if (min === 0 && max === 0) return 'Qualquer valor';
+		if (min === 0 && max === 0) return '';
 		// Se os valores são iguais, mostra apenas uma vez
 		if (min === max) {
 			return `R$ ${min.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -1541,12 +1541,12 @@ const Index = () => {
 											</CardTitle>
 										</CardHeader>
 										<CardContent className="flex flex-col flex-grow justify-between pt-0">
-											<p className="text-sm md:text-lg font-semibold text-wedding-olive mb-4">
+											<p className="text-sm md:text-lg font-semibold text-foreground mb-4">
 												{formatPrice(gift.minValue, gift.maxValue)}
 											</p>
 											<Button
 												onClick={() => handleGiftClick(gift)}
-												className="btn-shine-white w-full bg-wedding-olive hover:bg-wedding-olive/90 text-white text-xs md:text-sm py-2 md:py-3 mt-auto"
+												className="btn-shine-white w-full bg-gradient-to-r from-wedding-gold to-wedding-gold/90 hover:shadow-xl text-white text-xs md:text-sm py-2 md:py-3 mt-auto"
 												onMouseMove={shineMove}
 											>
 												Presentear
@@ -1580,12 +1580,12 @@ const Index = () => {
 											</CardDescription>
 										</CardHeader>
 										<CardContent className="flex flex-col flex-grow justify-between pt-0">
-											<p className="text-sm md:text-lg font-semibold text-wedding-olive mb-4">
+											<p className="text-sm md:text-lg font-semibold text-foreground mb-4">
 												{formatPrice(pixGift.minValue, pixGift.maxValue)}
 											</p>
 											<Button
 												onClick={() => handleGiftClick(pixGift)}
-												className="btn-shine-white w-full bg-wedding-olive hover:bg-wedding-olive/90 text-white text-xs md:text-sm py-2 md:py-3 mt-auto"
+												className="btn-shine-white w-full bg-gradient-to-r from-wedding-gold to-wedding-gold/90 hover:shadow-xl text-white text-xs md:text-sm py-2 md:py-3 mt-auto"
 												onMouseMove={shineMove}
 											>
 												Presentear
@@ -1630,7 +1630,7 @@ const Index = () => {
 						</h2>
 						<p className="text-center max-w-2xl mx-auto mb-8 text-gray-600">
 							Gostaríamos muito de contar com a sua presença em nosso dia
-							especial. Por favor, confirme abaixo até 17 de Setembro de 2026.
+							especial. Por favor, confirme sua presença abaixo.
 						</p>
 						<div className="w-24 h-1 bg-foreground mx-auto mb-12"></div>
 					</RevealOnScroll>
@@ -1961,27 +1961,6 @@ const Index = () => {
 			<footer className="py-20 bg-white text-center">
 				<div className="container mx-auto">
 					<div data-gsap-footer className="max-w-2xl mx-auto">
-						<h2 className="text-3xl font-playfair mb-4">
-							<button
-								onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-								className="bg-gradient-to-r from-wedding-gold to-wedding-rose bg-clip-text text-transparent hover:opacity-80 transition-opacity"
-							>
-								Luan & Cauane
-							</button>
-						</h2>
-						<p className="text-wedding-gold mb-6 text-lg font-medium">
-							17.10.2026
-						</p>
-						<p className="text-gray-600 mb-8 text-lg">
-							Com amor, esperamos por você em nosso dia especial.
-						</p>
-
-						<div className="flex justify-center items-center gap-6 mb-8">
-							<div className="w-1 h-1 bg-wedding-olive rounded-full"></div>
-							<div className="w-2 h-1 bg-wedding-olive rounded-full"></div>
-							<div className="w-1 h-1 bg-wedding-olive rounded-full"></div>
-						</div>
-
 						<p className="text-sm text-gray-500 mb-4">
 							Que este seja o início de uma nova e bela jornada juntos.
 						</p>

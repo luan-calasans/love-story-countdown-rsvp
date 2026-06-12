@@ -52,7 +52,7 @@ const PageLoader = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #faf9f1 0%, #f2f2e3 40%, #f7ebe5 100%)",
+        background: "linear-gradient(135deg, #FAF7F0 0%, #F4EFE6 40%, #EFE3D4 100%)",
         animation: fadeOut ? "loaderFadeOut 0.6s ease forwards" : undefined,
         overflow: "hidden",
       }}
@@ -67,7 +67,7 @@ const PageLoader = () => {
             left: `${p.left}%`,
             width: `${p.size}px`,
             height: `${p.size * 1.3}px`,
-            background: `radial-gradient(ellipse at 40% 30%, #f2b3a0, #e3735ecc)`,
+            background: `radial-gradient(ellipse at 40% 30%, #E5C0A6, #B66A4Acc)`,
             borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
             transform: `rotate(${p.rotate}deg)`,
             animation: `petalFall ${p.duration}s ease-in ${p.delay}s infinite`,
@@ -83,7 +83,7 @@ const PageLoader = () => {
           width: "400px",
           height: "400px",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(143,191,111,0.16) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(169,179,136,0.16) 0%, transparent 70%)",
           animation: "glowPulse 2s ease-in-out infinite",
         }}
       />
@@ -157,9 +157,9 @@ const PageLoader = () => {
             width: "86px",
             height: "86px",
             borderRadius: "50%",
-            border: "7px solid #C0952A",
+            border: "7px solid #D4AF37",
             background: "transparent",
-            boxShadow: "0 0 18px rgba(192,149,42,0.45), inset 0 0 8px rgba(192,149,42,0.15)",
+            boxShadow: "0 0 18px rgba(212,175,55,0.45), inset 0 0 8px rgba(212,175,55,0.15)",
             animation: "ringRight 1.2s cubic-bezier(0.34,1.56,0.64,1) 0.1s both",
             zIndex: 2,
           }}
@@ -174,7 +174,7 @@ const PageLoader = () => {
             width: "86px",
             height: "86px",
             borderRadius: "50%",
-            border: "7px solid #C0952A",
+            border: "7px solid #D4AF37",
             background: "transparent",
             animation: "ringRight 1.2s cubic-bezier(0.34,1.56,0.64,1) 0.1s both",
             zIndex: 4,
@@ -190,7 +190,7 @@ const PageLoader = () => {
           fontSize: "clamp(1.6rem, 5vw, 2.4rem)",
           fontWeight: 600,
           letterSpacing: "0.04em",
-          background: "linear-gradient(135deg, #84452f, #a6573d, #e3735e)",
+          background: "linear-gradient(135deg, #7A4632, #B66A4A, #D9A17E)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
           backgroundClip: "text",
@@ -213,9 +213,9 @@ const PageLoader = () => {
           animation: "namesAppear 0.6s ease 2.1s both",
         }}
       >
-        <div style={{ width: "40px", height: "1px", background: "linear-gradient(to right, transparent, #6b863b)" }} />
-        <div style={{ fontSize: "12px", color: "#6b863b", letterSpacing: "0.1em" }}>✦</div>
-        <div style={{ width: "40px", height: "1px", background: "linear-gradient(to left, transparent, #6b863b)" }} />
+        <div style={{ width: "40px", height: "1px", background: "linear-gradient(to right, transparent, #5F6F52)" }} />
+        <div style={{ fontSize: "12px", color: "#5F6F52", letterSpacing: "0.1em" }}>✦</div>
+        <div style={{ width: "40px", height: "1px", background: "linear-gradient(to left, transparent, #5F6F52)" }} />
       </div>
 
       {/* Data */}
@@ -224,7 +224,7 @@ const PageLoader = () => {
           fontFamily: "'Open Sans', sans-serif",
           fontSize: "clamp(0.75rem, 2vw, 0.9rem)",
           letterSpacing: "0.3em",
-          color: "#6b863b",
+          color: "#5F6F52",
           textTransform: "uppercase",
           animation: "namesAppear 0.6s ease 2.4s both",
         }}

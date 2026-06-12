@@ -64,14 +64,16 @@ export default {
           ring: 'hsl(var(--sidebar-ring))',
         },
         wedding: {
-          cream: '#F8F6EF',
-          gold: '#a6573d', // terracota
-          rose: '#e3735e', // terracota clara
-          olive: '#6b863b',
-          sage: '#8fbf6f', // verde oliva claro
+          cream: '#FAF7F0', // off-white / branco quente
+          gold: '#B66A4A', // terracota queimado (principal)
+          rose: '#D9A17E', // argila suave (terracota claro)
+          olive: '#5F6F52', // oliva profundo (principal)
+          sage: '#A9B388', // sálvia (verde oliva claro)
+          sand: '#F4EFE6', // areia (neutro claro)
+          taupe: '#C8B8A6', // bege cinza (neutro médio)
         },
         dark: {
-          bg: '#111827',
+          bg: '#3F3A34', // marrom grafite (neutro escuro)
         },
       },
       fontFamily: {
@@ -148,10 +150,10 @@ export default {
         },
         glow: {
           '0%, 100%': {
-            boxShadow: '0 0 20px rgba(166, 87, 61, 0.3)',
+            boxShadow: '0 0 20px rgba(182, 106, 74, 0.3)',
           },
           '50%': {
-            boxShadow: '0 0 30px rgba(166, 87, 61, 0.6)',
+            boxShadow: '0 0 30px rgba(182, 106, 74, 0.6)',
           },
         },
         'slide-up': {

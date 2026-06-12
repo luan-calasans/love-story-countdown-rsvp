@@ -1786,6 +1786,14 @@ const Index = () => {
 									{PIX_NAME}
 								</p>
 							</div>
+							<div className="px-4 py-3">
+								<p className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-0.5">
+									Chave PIX
+								</p>
+								<p className="text-sm font-semibold text-gray-800 break-all">
+									{PIX_KEY}
+								</p>
+							</div>
 							<div className="px-4 py-3 bg-wedding-olive/10">
 								<p className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-0.5">
 									Valor
@@ -1800,31 +1808,43 @@ const Index = () => {
 							</div>
 						</div>
 
-						<Button
-							variant="outline"
-							onClick={() => copyToClipboard('key')}
-							className={`btn-shine-olive w-full h-11 font-semibold transition-all ${copiedField === 'key' ? 'border-green-400 bg-green-50 text-green-600 hover:bg-green-50 hover:text-green-600' : 'border-wedding-olive/40 text-wedding-olive hover:bg-wedding-olive/10 hover:border-wedding-olive hover:text-wedding-olive'}`}
-							onMouseMove={shineMove}
-						>
-							{copiedField === 'key' ? (
-								<>
-									<Check className="w-4 h-4 mr-2" />
-									Copiado!
-								</>
-							) : (
-								<>
-									<Copy className="w-4 h-4 mr-2" />
-									Copiar chave PIX
-								</>
-							)}
-						</Button>
+						<div className="flex gap-3">
+							<Button
+								variant="outline"
+								onClick={() => handleClosePixModal(false)}
+								className="btn-shine-olive flex-1 h-11 font-semibold border-wedding-olive/40 text-gray-600 hover:bg-wedding-olive/10 hover:border-wedding-olive hover:text-wedding-olive"
+								onMouseMove={shineMove}
+							>
+								<X className="w-4 h-4 mr-2" />
+								Fechar
+							</Button>
+
+							<Button
+								variant="outline"
+								onClick={() => copyToClipboard('key')}
+								className={`btn-shine-olive flex-1 h-11 font-semibold transition-all ${copiedField === 'key' ? 'border-green-400 bg-green-50 text-green-600 hover:bg-green-50 hover:text-green-600' : 'border-wedding-olive/40 text-wedding-olive hover:bg-wedding-olive/10 hover:border-wedding-olive hover:text-wedding-olive'}`}
+								onMouseMove={shineMove}
+							>
+								{copiedField === 'key' ? (
+									<>
+										<Check className="w-4 h-4 mr-2" />
+										Copiado!
+									</>
+								) : (
+									<>
+										<Copy className="w-4 h-4 mr-2" />
+										Copiar
+									</>
+								)}
+							</Button>
+						</div>
 					</div>
 				</DialogContent>
 			</Dialog>
 
 			{/* Modal de QR Code */}
 			<Dialog open={showQrModal} onOpenChange={handleCloseQrModal}>
-				<DialogContent className="sm:max-w-sm bg-white border-2 border-wedding-olive/30 rounded-2xl shadow-2xl p-0 overflow-hidden">
+				<DialogContent className="sm:max-w-sm bg-white border-2 border-wedding-olive/30 rounded-2xl shadow-2xl p-0 overflow-y-auto max-h-[90vh]">
 					{/* Header decorativo */}
 					<div className="bg-gradient-to-r from-wedding-olive/10 to-wedding-sage/10 px-6 pt-6 pb-4 border-b border-wedding-olive/20">
 						<DialogHeader>
@@ -1837,20 +1857,20 @@ const Index = () => {
 						</DialogHeader>
 					</div>
 
-					<div className="px-6 py-5 space-y-4">
+					<div className="px-6 py-5 space-y-4 min-w-0">
 						{/* QR Code */}
 						<div className="flex flex-col items-center">
 							<div className="rounded-2xl border-2 border-wedding-olive/25 bg-white p-4 shadow-sm">
 								{pixPayload ? (
 									<QRCodeSVG
 										value={pixPayload}
-										size={188}
+										size={140}
 										level="M"
 										marginSize={0}
 									/>
 								) : (
-									<div className="w-[188px] h-[188px] flex items-center justify-center text-gray-300">
-										<QrCode className="w-16 h-16" />
+									<div className="w-[140px] h-[140px] flex items-center justify-center text-gray-300">
+										<QrCode className="w-12 h-12" />
 									</div>
 								)}
 							</div>
@@ -1868,6 +1888,22 @@ const Index = () => {
 								</p>
 								<p className="text-sm font-semibold text-gray-800">
 									{PIX_NAME}
+								</p>
+							</div>
+							<div className="px-4 py-3 min-w-0">
+								<p className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-0.5">
+									Chave PIX
+								</p>
+								<p
+									className="text-sm font-semibold text-gray-800 overflow-hidden whitespace-nowrap min-w-0"
+									style={{
+										maskImage:
+											'linear-gradient(to right, #000 70%, transparent 100%)',
+										WebkitMaskImage:
+											'linear-gradient(to right, #000 70%, transparent 100%)',
+									}}
+								>
+									{pixPayload}
 								</p>
 							</div>
 							<div className="px-4 py-3 bg-wedding-olive/10">

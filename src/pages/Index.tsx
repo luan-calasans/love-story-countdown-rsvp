@@ -39,7 +39,16 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from '@/components/ui/dialog';
-import { Search, Gift, X, Filter, Copy, Check, QrCode } from 'lucide-react';
+import {
+	Search,
+	Gift,
+	X,
+	Filter,
+	Copy,
+	Check,
+	QrCode,
+	ArrowLeft,
+} from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { assetUrl } from '@/lib/assetUrl';
 import { gerarPayloadPix } from '@/lib/pix';
@@ -669,8 +678,10 @@ const Index = () => {
 	const [paymentAmountDisplay, setPaymentAmountDisplay] =
 		useState<string>('0,00');
 	const [showPixModal, setShowPixModal] = useState(false);
-	const [showQrCode, setShowQrCode] = useState(false);
+	const [showQrModal, setShowQrModal] = useState(false);
 	const [copiedField, setCopiedField] = useState<'code' | 'key' | null>(null);
+	// Evita reset de estados durante a transição entre os modais PIX <-> QR Code
+	const modalTransitionRef = useRef(false);
 
 	// Payload "Pix Copia e Cola" (BR Code) gerado a partir do valor escolhido
 	const pixPayload = useMemo(() => {
@@ -964,7 +975,7 @@ const Index = () => {
 		setPaymentAmount(amount);
 		setPaymentAmountDisplay(formatAmountDisplay(amount));
 		setIsModalOpen(false);
-		setShowQrCode(false);
+		setShowQrModal(false);
 		setShowPixModal(true);
 	};
 
@@ -1011,9 +1022,40 @@ const Index = () => {
 	const handleClosePixModal = (open: boolean) => {
 		setShowPixModal(open);
 		if (!open) {
-			setShowQrCode(false);
+			if (modalTransitionRef.current) {
+				modalTransitionRef.current = false;
+				return;
+			}
+			setShowQrModal(false);
 			resetPaymentStates();
 		}
+	};
+
+	// Handler para fechar modal de QR Code
+	const handleCloseQrModal = (open: boolean) => {
+		setShowQrModal(open);
+		if (!open) {
+			if (modalTransitionRef.current) {
+				modalTransitionRef.current = false;
+				return;
+			}
+			setShowPixModal(false);
+			resetPaymentStates();
+		}
+	};
+
+	// Vai do modal PIX para o modal do QR Code
+	const goToQrCode = () => {
+		modalTransitionRef.current = true;
+		setShowPixModal(false);
+		setShowQrModal(true);
+	};
+
+	// Volta do modal do QR Code para o modal PIX
+	const backToPixModal = () => {
+		modalTransitionRef.current = true;
+		setShowQrModal(false);
+		setShowPixModal(true);
 	};
 
 	return (
@@ -1712,40 +1754,17 @@ const Index = () => {
 					</div>
 
 					<div className="px-6 py-5 space-y-4">
-						{/* QR Code (exibido somente ao clicar) */}
-						{showQrCode ? (
-							<div className="flex flex-col items-center">
-								<div className="rounded-2xl border-2 border-wedding-olive/25 bg-white p-4 shadow-sm">
-									{pixPayload ? (
-										<QRCodeSVG
-											value={pixPayload}
-											size={188}
-											level="M"
-											marginSize={0}
-										/>
-									) : (
-										<div className="w-[188px] h-[188px] flex items-center justify-center text-gray-300">
-											<QrCode className="w-16 h-16" />
-										</div>
-									)}
-								</div>
-								<p className="text-xs text-gray-400 mt-2 flex items-center gap-1">
-									<QrCode className="w-3.5 h-3.5" />
-									Abra o app do seu banco e escaneie
-								</p>
-							</div>
-						) : (
-							<Button
-								variant="outline"
-								onClick={() => setShowQrCode(true)}
-								disabled={!pixPayload}
-								className="btn-shine-olive w-full h-11 font-semibold border-wedding-olive/40 text-wedding-olive hover:bg-wedding-olive/10 hover:border-wedding-olive hover:text-wedding-olive disabled:opacity-40"
-								onMouseMove={shineMove}
-							>
-								<QrCode className="w-4 h-4 mr-2" />
-								Ver QR Code
-							</Button>
-						)}
+						{/* Ver QR Code (abre modal dedicado) */}
+						<Button
+							variant="outline"
+							onClick={goToQrCode}
+							disabled={!pixPayload}
+							className="btn-shine-olive w-full h-11 font-semibold border-wedding-olive/40 text-wedding-olive hover:bg-wedding-olive/10 hover:border-wedding-olive hover:text-wedding-olive disabled:opacity-40"
+							onMouseMove={shineMove}
+						>
+							<QrCode className="w-4 h-4 mr-2" />
+							Ver QR Code
+						</Button>
 
 						{/* Card de informações */}
 						<div className="rounded-xl border border-wedding-olive/25 bg-wedding-olive/5 divide-y divide-wedding-olive/15 overflow-hidden">
@@ -1767,12 +1786,88 @@ const Index = () => {
 									{PIX_NAME}
 								</p>
 							</div>
+							<div className="px-4 py-3 bg-wedding-olive/10">
+								<p className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-0.5">
+									Valor
+								</p>
+								<p className="text-2xl font-bold text-wedding-olive">
+									R${' '}
+									{paymentAmount.toLocaleString('pt-BR', {
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2,
+									})}
+								</p>
+							</div>
+						</div>
+
+						<Button
+							variant="outline"
+							onClick={() => copyToClipboard('key')}
+							className={`btn-shine-olive w-full h-11 font-semibold transition-all ${copiedField === 'key' ? 'border-green-400 bg-green-50 text-green-600 hover:bg-green-50 hover:text-green-600' : 'border-wedding-olive/40 text-wedding-olive hover:bg-wedding-olive/10 hover:border-wedding-olive hover:text-wedding-olive'}`}
+							onMouseMove={shineMove}
+						>
+							{copiedField === 'key' ? (
+								<>
+									<Check className="w-4 h-4 mr-2" />
+									Copiado!
+								</>
+							) : (
+								<>
+									<Copy className="w-4 h-4 mr-2" />
+									Copiar chave PIX
+								</>
+							)}
+						</Button>
+					</div>
+				</DialogContent>
+			</Dialog>
+
+			{/* Modal de QR Code */}
+			<Dialog open={showQrModal} onOpenChange={handleCloseQrModal}>
+				<DialogContent className="sm:max-w-sm bg-white border-2 border-wedding-olive/30 rounded-2xl shadow-2xl p-0 overflow-hidden">
+					{/* Header decorativo */}
+					<div className="bg-gradient-to-r from-wedding-olive/10 to-wedding-sage/10 px-6 pt-6 pb-4 border-b border-wedding-olive/20">
+						<DialogHeader>
+							<DialogTitle className="text-wedding-olive text-xl font-playfair flex items-center gap-2">
+								QR Code PIX
+							</DialogTitle>
+							<DialogDescription className="sr-only">
+								QR Code para pagamento via PIX
+							</DialogDescription>
+						</DialogHeader>
+					</div>
+
+					<div className="px-6 py-5 space-y-4">
+						{/* QR Code */}
+						<div className="flex flex-col items-center">
+							<div className="rounded-2xl border-2 border-wedding-olive/25 bg-white p-4 shadow-sm">
+								{pixPayload ? (
+									<QRCodeSVG
+										value={pixPayload}
+										size={188}
+										level="M"
+										marginSize={0}
+									/>
+								) : (
+									<div className="w-[188px] h-[188px] flex items-center justify-center text-gray-300">
+										<QrCode className="w-16 h-16" />
+									</div>
+								)}
+							</div>
+							<p className="text-xs text-gray-400 mt-2 flex items-center gap-1">
+								<QrCode className="w-3.5 h-3.5" />
+								Abra o app do seu banco e escaneie
+							</p>
+						</div>
+
+						{/* Card de informações */}
+						<div className="rounded-xl border border-wedding-olive/25 bg-wedding-olive/5 divide-y divide-wedding-olive/15 overflow-hidden">
 							<div className="px-4 py-3">
 								<p className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-0.5">
-									Chave PIX (e-mail)
+									Recebedor
 								</p>
-								<p className="text-sm font-semibold text-gray-800 break-all">
-									{PIX_KEY}
+								<p className="text-sm font-semibold text-gray-800">
+									{PIX_NAME}
 								</p>
 							</div>
 							<div className="px-4 py-3 bg-wedding-olive/10">
@@ -1789,44 +1884,39 @@ const Index = () => {
 							</div>
 						</div>
 
-						{/* Pix Copia e Cola */}
-						<Button
-							onClick={() => copyToClipboard('code')}
-							disabled={!pixPayload}
-							className={`btn-shine-white w-full h-11 font-semibold shadow-md transition-all disabled:opacity-40 ${copiedField === 'code' ? 'border border-green-400 bg-green-50 text-green-600 hover:bg-green-50 hover:text-green-600' : 'bg-wedding-olive hover:bg-wedding-olive/90 text-white'}`}
-							onMouseMove={shineMove}
-						>
-							{copiedField === 'code' ? (
-								<>
-									<Check className="w-4 h-4 mr-2" />
-									Copiado!
-								</>
-							) : (
-								<>
-									<Copy className="w-4 h-4 mr-2" />
-									Copiar - Pix Copia e Cola
-								</>
-							)}
-						</Button>
+						{/* Ações */}
+						<div className="flex gap-3">
+							{/* Voltar */}
+							<Button
+								variant="outline"
+								onClick={backToPixModal}
+								className="btn-shine-olive flex-1 h-11 font-semibold border-wedding-olive/40 text-wedding-olive hover:bg-wedding-olive/10 hover:border-wedding-olive hover:text-wedding-olive"
+								onMouseMove={shineMove}
+							>
+								<ArrowLeft className="w-4 h-4 mr-2" />
+								Voltar
+							</Button>
 
-						<Button
-							variant="outline"
-							onClick={() => copyToClipboard('key')}
-							className={`btn-shine-olive w-full h-11 font-semibold transition-all ${copiedField === 'key' ? 'border-green-400 bg-green-50 text-green-600 hover:bg-green-50 hover:text-green-600' : 'border-wedding-olive/40 text-wedding-olive hover:bg-wedding-olive/10 hover:border-wedding-olive hover:text-wedding-olive'}`}
-							onMouseMove={shineMove}
-						>
-							{copiedField === 'key' ? (
-								<>
-									<Check className="w-4 h-4 mr-2" />
-									Copiado!
-								</>
-							) : (
-								<>
-									<Copy className="w-4 h-4 mr-2" />
-									Copiar - PIX e-mail
-								</>
-							)}
-						</Button>
+							{/* Pix Copia e Cola */}
+							<Button
+								onClick={() => copyToClipboard('code')}
+								disabled={!pixPayload}
+								className={`btn-shine-white flex-1 h-11 font-semibold shadow-md transition-all disabled:opacity-40 ${copiedField === 'code' ? 'border border-green-400 bg-green-50 text-green-600 hover:bg-green-50 hover:text-green-600' : 'bg-wedding-olive hover:bg-wedding-olive/90 text-white'}`}
+								onMouseMove={shineMove}
+							>
+								{copiedField === 'code' ? (
+									<>
+										<Check className="w-4 h-4 mr-2" />
+										Copiado!
+									</>
+								) : (
+									<>
+										<Copy className="w-4 h-4 mr-2" />
+										Copiar
+									</>
+								)}
+							</Button>
+						</div>
 					</div>
 				</DialogContent>
 			</Dialog>

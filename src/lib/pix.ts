@@ -1,10 +1,6 @@
-// Gerador de payload Pix no padrão BR Code (EMVco) para "Copia e Cola" e QR Code.
-// Os limites de tamanho seguem a especificação do BACEN (nome: 25, cidade: 15).
-
 const PIX_NAME_MAX = 25;
 const PIX_CITY_MAX = 15;
 
-// Remove acentos e caracteres não suportados para garantir compatibilidade entre bancos.
 const sanitize = (value: string) =>
 	value
 		.normalize('NFD')
@@ -12,11 +8,9 @@ const sanitize = (value: string) =>
 		.replace(/[^\x20-\x7E]/g, '')
 		.trim();
 
-// Monta um campo EMV (TLV): id + tamanho(2 dígitos) + valor.
 const emv = (id: string, value: string) =>
 	`${id}${value.length.toString().padStart(2, '0')}${value}`;
 
-// CRC16/CCITT-FALSE, conforme exigido pelo BACEN (polinômio 0x1021).
 const crc16 = (payload: string): string => {
 	let crc = 0xffff;
 	for (let i = 0; i < payload.length; i++) {
@@ -49,8 +43,7 @@ export const gerarPayloadPix = ({
 	const cidadeLimpa = sanitize(cidade).slice(0, PIX_CITY_MAX) || 'BRASIL';
 	const valorFormatado = valor.toFixed(2);
 
-	const merchantAccount =
-		emv('00', 'BR.GOV.BCB.PIX') + emv('01', chaveLimpa);
+	const merchantAccount = emv('00', 'BR.GOV.BCB.PIX') + emv('01', chaveLimpa);
 	const additionalData = emv('05', txid);
 
 	const payload =

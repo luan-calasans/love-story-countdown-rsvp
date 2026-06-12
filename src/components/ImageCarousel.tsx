@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight, X } from 'lucide-react';
 
@@ -170,7 +171,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
         </button>
       </div>
 
-      {selectedImage && (
+      {selectedImage && createPortal(
         <div
           className='fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4'
           onClick={closePopup}
@@ -221,7 +222,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
               draggable={false}
             />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

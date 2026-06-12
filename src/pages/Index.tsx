@@ -713,6 +713,8 @@ const Index = () => {
 		if (!sidebar) return;
 		sidebar.style.position = '';
 		sidebar.style.top = '';
+		sidebar.style.bottom = '';
+		sidebar.style.left = '';
 		sidebar.style.width = '';
 		sidebar.style.zIndex = '';
 	}, []);
@@ -724,24 +726,37 @@ const Index = () => {
 		}
 		const wrapper = sidebarWrapperRef.current;
 		const sidebar = sidebarRef.current;
-		const section = sectionRef.current;
-		if (!wrapper || !sidebar || !section) return;
+		if (!wrapper || !sidebar) return;
 
 		const HEADER_H = 96;
-		const sectionRect = section.getBoundingClientRect();
 		const wrapperRect = wrapper.getBoundingClientRect();
 		const sidebarH = sidebar.offsetHeight;
 
-		if (
-			sectionRect.top <= HEADER_H &&
-			sectionRect.bottom > HEADER_H + sidebarH
-		) {
-			sidebar.style.position = 'fixed';
-			sidebar.style.top = `${HEADER_H}px`;
-			sidebar.style.width = `${wrapperRect.width}px`;
+		// Se a sidebar é mais alta que o espaço disponível, mantém no fluxo normal
+		if (sidebarH >= wrapper.offsetHeight) {
+			resetSidebarStyles();
+			return;
+		}
+
+		if (wrapperRect.top > HEADER_H) {
+			// Estado 1: topo — ainda não alcançou o header, fluxo normal
+			resetSidebarStyles();
+		} else if (wrapperRect.bottom <= HEADER_H + sidebarH) {
+			// Estado 3: fim — cola no fundo do wrapper (acompanha até o último item)
+			sidebar.style.position = 'absolute';
+			sidebar.style.top = 'auto';
+			sidebar.style.bottom = '0';
+			sidebar.style.left = '0';
+			sidebar.style.width = '100%';
 			sidebar.style.zIndex = '40';
 		} else {
-			resetSidebarStyles();
+			// Estado 2: meio — fixo acompanhando o scroll
+			sidebar.style.position = 'fixed';
+			sidebar.style.top = `${HEADER_H}px`;
+			sidebar.style.bottom = 'auto';
+			sidebar.style.left = `${wrapperRect.left}px`;
+			sidebar.style.width = `${wrapperRect.width}px`;
+			sidebar.style.zIndex = '40';
 		}
 	}, [resetSidebarStyles]);
 
@@ -1377,7 +1392,7 @@ const Index = () => {
 					<div className="flex flex-col lg:flex-row gap-6">
 						{/* Sidebar Filters */}
 						<aside
-							className="w-full lg:w-72 flex-shrink-0"
+							className="w-full lg:w-72 flex-shrink-0 lg:relative"
 							ref={sidebarWrapperRef}
 						>
 							<div ref={sidebarRef}>
